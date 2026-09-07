@@ -25,3 +25,6 @@ Recordings/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Local Git worktrees used to prepare integration branches
+.worktrees/
