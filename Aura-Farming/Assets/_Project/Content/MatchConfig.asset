@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb75cbd789da5d419ebbe9cbb653471, type: 3}
+  m_Name: MatchConfig
+  m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.MatchConfig
+  signals:
+  - {fileID: 11400000, guid: 58f7d997ca7cbab458307b90c96db844, type: 2}
+  - {fileID: 11400000, guid: 5aa474a9dd6340147bd83cce9f8b3efa, type: 2}
+  - {fileID: 11400000, guid: c308e600fe8bcec4b969be0a740704e7, type: 2}
+  - {fileID: 11400000, guid: b08010f6498fca04e9e71300d74b1130, type: 2}
+  - {fileID: 11400000, guid: 88dfca778895eda4aa6534ab10efc37a, type: 2}
+  - {fileID: 11400000, guid: c1e111f895a708c48b991a5e4947b5e5, type: 2}
+  - {fileID: 11400000, guid: 42b2e65ac1e04f046ac8844df3285ff3, type: 2}
+  - {fileID: 11400000, guid: 0bd3deef0005b3243bb42cc3bc95f97c, type: 2}
+  - {fileID: 11400000, guid: 1066dcc7d86c2d4459484ab20160aca1, type: 2}
+  events:
+  - {fileID: 11400000, guid: 953c624843f11534298d60dc535f2a3e, type: 2}
+  - {fileID: 11400000, guid: 2358d05b667e93c46a3f48d3fb95d90d, type: 2}
+  - {fileID: 11400000, guid: 9c6b622b0a6382a459c13bf084d5f86f, type: 2}
+  - {fileID: 11400000, guid: 7324241e516eada4b9ca330a9a3f5820, type: 2}
+  - {fileID: 11400000, guid: 960ebc18b219edf499c68ff89953059a, type: 2}
+  - {fileID: 11400000, guid: 8e268605b173ff645b37e56e3b822fd1, type: 2}

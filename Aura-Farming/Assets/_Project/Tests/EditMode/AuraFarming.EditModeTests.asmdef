@@ -1,0 +1,23 @@
+{
+  "name": "AuraFarming.EditModeTests",
+  "rootNamespace": "AuraFarming.Tests.EditMode",
+  "references": [
+    "AuraFarming.Domain",
+    "AuraFarming.Application",
+    "AuraFarming.Infrastructure",
+    "AuraFarming.Presentation"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

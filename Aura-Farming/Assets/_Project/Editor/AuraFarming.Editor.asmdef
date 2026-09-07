@@ -1,0 +1,6 @@
+{
+  "name": "AuraFarming.Editor",
+  "references": ["AuraFarming.Infrastructure", "AuraFarming.Presentation", "Unity.ugui", "Unity.InputSystem"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": true
+}
