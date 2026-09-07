@@ -15,4 +15,4 @@ MonoBehaviour:
   id: signal-1
   displayName: Signal 1
   value: 1
-  artwork: {fileID: 0}
+  artwork: {fileID: 21300000, guid: 0734c7c240191f840b18cca7ebcb79c1, type: 3}
