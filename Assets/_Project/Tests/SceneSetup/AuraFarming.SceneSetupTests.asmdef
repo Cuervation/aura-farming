@@ -1,0 +1,7 @@
+{
+  "name": "AuraFarming.SceneSetupTests",
+  "references": ["AuraFarming.Editor", "AuraFarming.Infrastructure", "AuraFarming.Presentation", "Unity.ugui", "Unity.InputSystem"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

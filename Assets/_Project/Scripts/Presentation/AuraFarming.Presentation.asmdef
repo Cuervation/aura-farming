@@ -1,0 +1,18 @@
+{
+  "name": "AuraFarming.Presentation",
+  "rootNamespace": "AuraFarming.Presentation",
+  "references": [
+    "AuraFarming.Domain",
+    "AuraFarming.Application",
+    "AuraFarming.Infrastructure",
+    "Unity.ugui"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": []
+}
