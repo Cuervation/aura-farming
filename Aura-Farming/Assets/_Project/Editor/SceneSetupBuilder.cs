@@ -137,11 +137,13 @@ namespace AuraFarming.Editor
             var hud = Label(canvas, "Score", 20, 280, 95);
             var status = Label(canvas, "Status", 26, 190, 75);
             var selection = Panel(canvas, "Selection", false);
+            var signalArtwork = new Image[9];
             for (var i = 1; i <= 9; i++)
             {
                 var button = Button(selection.transform, $"Signal {i}", (i - 1) % 3 * 240 - 240,
                     80 - (i - 1) / 3 * 95, null, 215);
                 UnityEventTools.AddIntPersistentListener(button.onClick, root.ChooseSignal, i);
+                signalArtwork[i - 1] = Artwork(button);
             }
             var pass = Panel(canvas, "Pass", false);
             Label(pass.transform, "KEEP YOUR SIGNAL PRIVATE", 30, 50);
@@ -154,6 +156,8 @@ namespace AuraFarming.Editor
             Label(end.transform, "MATCH COMPLETE", 44, 20);
             Label(end.transform, "Stop Play Mode to return to the editor.", 22, -60);
             view.Configure(selection, pass, reveal, result, end, hud, status);
+            view.ConfigureSignalArtworkSlots(signalArtwork);
+            view.ApplySignalArtwork(config.Signals);
             root.Configure(config, view);
             selection.SetActive(true);
             pass.SetActive(false); reveal.SetActive(false); result.SetActive(false); end.SetActive(false);
@@ -213,6 +217,23 @@ namespace AuraFarming.Editor
             return button;
         }
 
+        private static Image Artwork(Button button)
+        {
+            var go = new GameObject("Artwork", typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(button.transform, false);
+            var rect = go.GetComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            var image = go.GetComponent<Image>();
+            image.raycastTarget = false;
+            image.preserveAspect = true;
+            image.enabled = false;
+            go.transform.SetSiblingIndex(0);
+            return image;
+        }
+
         private static Font Font() => Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         private static void Place(RectTransform rect, float x, float y, float width, float height)
         {
@@ -235,6 +256,51 @@ namespace AuraFarming.Editor
             camera.cullingMask = 0; // UI uses ScreenSpaceOverlay; only clear the display.
             camera.orthographic = true;
             camera.depth = -100;
+        }
+
+        [MenuItem("Aura Farming/Setup/Refresh Signal Artwork")]
+        public static void RefreshSignalArtwork()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("Exit Play Mode before refreshing artwork.");
+            var config = AssetDatabase.LoadAssetAtPath<MatchConfig>(ContentFolder + "/MatchConfig.asset");
+            if (!ContentValidator.Validate(config).IsValid)
+                throw new InvalidOperationException("Invalid MatchConfig; artwork was not refreshed.");
+            var previous = SceneManager.GetActiveScene();
+            var path = ScenePath("Game");
+            if (!File.Exists(path))
+                throw new FileNotFoundException("Missing Game scene.", path);
+            var scene = SceneManager.GetSceneByPath(path);
+            var alreadyOpen = scene.IsValid() && scene.isLoaded;
+            if (!alreadyOpen) scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+            try
+            {
+                var components = scene.GetRootGameObjects()
+                    .SelectMany(go => go.GetComponentsInChildren<Component>(true))
+                    .ToArray();
+                var view = components.OfType<MatchView>().SingleOrDefault();
+                if (view == null)
+                    throw new InvalidOperationException("Game scene has no MatchView.");
+                var buttons = components.OfType<Button>().ToArray();
+                var slots = Enumerable.Range(1, 9)
+                    .Select(id => buttons.SingleOrDefault(button => button.name == $"Signal {id}"))
+                    .Select(button => button == null
+                        ? throw new InvalidOperationException("Game scene is missing a Signal button.")
+                        : button.GetComponentsInChildren<Image>(true)
+                            .FirstOrDefault(image => image.gameObject.name == "Artwork") ?? Artwork(button))
+                    .ToArray();
+                view.ConfigureSignalArtworkSlots(slots);
+                view.ApplySignalArtwork(config.Signals);
+                EditorUtility.SetDirty(view);
+                if (!EditorSceneManager.SaveScene(scene, path))
+                    throw new IOException("Could not save " + path);
+            }
+            finally
+            {
+                if (!alreadyOpen) EditorSceneManager.CloseScene(scene, true);
+                if (previous.IsValid() && previous.isLoaded) SceneManager.SetActiveScene(previous);
+            }
+            ValidateSavedSetup();
         }
 
         [MenuItem("Aura Farming/Setup/Repair Missing Presentation Cameras")]

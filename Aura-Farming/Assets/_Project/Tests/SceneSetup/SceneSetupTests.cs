@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using AuraFarming.Editor;
 using AuraFarming.Infrastructure;
+using AuraFarming.Presentation;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,10 @@ namespace AuraFarming.Tests.SceneSetup
             firstButton.transform.SetParent(selection.transform, false);
             var secondButton = new GameObject("Signal 2", typeof(UnityEngine.UI.Image), typeof(UnityEngine.UI.Button));
             secondButton.transform.SetParent(selection.transform, false);
+            var firstArtworkSlot = new GameObject("Artwork", typeof(UnityEngine.UI.Image));
+            firstArtworkSlot.transform.SetParent(firstButton.transform, false);
+            var secondArtworkSlot = new GameObject("Artwork", typeof(UnityEngine.UI.Image));
+            secondArtworkSlot.transform.SetParent(secondButton.transform, false);
             var texture = new Texture2D(2, 2);
             var artwork = Sprite.Create(texture, new Rect(0, 0, 2, 2), new Vector2(0.5f, 0.5f));
             var signal = ScriptableObject.CreateInstance<SignalDefinition>();
@@ -25,11 +30,17 @@ namespace AuraFarming.Tests.SceneSetup
             var view = root.AddComponent<MatchView>();
             try
             {
-                view.Configure(selection, null, null, null, null, null, null);
-                view.ConfigureSignalArtwork(new[] { signal });
+                view.ConfigureSignalArtworkSlots(new[]
+                {
+                    firstArtworkSlot.GetComponent<UnityEngine.UI.Image>(),
+                    secondArtworkSlot.GetComponent<UnityEngine.UI.Image>()
+                });
+                view.ApplySignalArtwork(new[] { signal });
 
-                Assert.That(firstButton.GetComponent<UnityEngine.UI.Image>().sprite, Is.SameAs(artwork));
-                Assert.That(secondButton.GetComponent<UnityEngine.UI.Image>().sprite, Is.Null);
+                Assert.That(firstArtworkSlot.GetComponent<UnityEngine.UI.Image>().sprite, Is.SameAs(artwork));
+                Assert.That(firstArtworkSlot.GetComponent<UnityEngine.UI.Image>().preserveAspect, Is.True);
+                Assert.That(secondArtworkSlot.GetComponent<UnityEngine.UI.Image>().sprite, Is.Null);
+                Assert.That(secondArtworkSlot.GetComponent<UnityEngine.UI.Image>().enabled, Is.False);
             }
             finally
             {

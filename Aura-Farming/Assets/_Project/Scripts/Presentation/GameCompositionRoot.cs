@@ -44,6 +44,8 @@ namespace AuraFarming.Presentation
                 signalValues.Add(new SignalCardId(index + 1), matchConfig.Signals[index].Value);
             }
 
+            matchView.ApplySignalArtwork(matchConfig.Signals);
+
             var session = new GameSession(players, signalValues);
             _presenter = new GamePresenter(new SelectionFlowController(session), matchView);
             _presenter.Start();

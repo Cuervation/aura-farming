@@ -1,7 +1,10 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AuraFarming.Application;
 using AuraFarming.Domain;
+using AuraFarming.Infrastructure;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +19,7 @@ namespace AuraFarming.Presentation
         [SerializeField] private GameObject endPanel;
         [SerializeField] private Text hudText;
         [SerializeField] private Text statusText;
+        [SerializeField] private Image[] signalArtwork = Array.Empty<Image>();
 
         public void Configure(
             GameObject selection,
@@ -33,6 +37,47 @@ namespace AuraFarming.Presentation
             endPanel = end;
             hudText = hud;
             statusText = status;
+        }
+
+        public void ConfigureSignalArtworkSlots(Image[] slots)
+        {
+            signalArtwork = slots ?? Array.Empty<Image>();
+        }
+
+        public void ApplySignalArtwork(IReadOnlyList<SignalDefinition> signals)
+        {
+            if (signals == null)
+            {
+                return;
+            }
+
+            var count = Math.Min(signalArtwork.Length, signals.Count);
+            for (var index = 0; index < count; index++)
+            {
+                var slot = signalArtwork[index];
+                if (slot == null)
+                {
+                    continue;
+                }
+
+                var artwork = signals[index]?.Artwork;
+                slot.sprite = artwork;
+                slot.preserveAspect = true;
+                slot.enabled = artwork != null;
+            }
+
+            for (var index = count; index < signalArtwork.Length; index++)
+            {
+                var slot = signalArtwork[index];
+                if (slot == null)
+                {
+                    continue;
+                }
+
+                slot.sprite = null;
+                slot.preserveAspect = true;
+                slot.enabled = false;
+            }
         }
 
         public void Render(GameSnapshot snapshot)
