@@ -55,8 +55,7 @@ namespace AuraFarming.Tests.SceneSetup
         [Test]
         public void PresentationCameraRepairIsIdempotentAndRendersDisplayZero()
         {
-            var previous = SceneManager.GetActiveScene();
-            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             try
             {
                 SceneManager.SetActiveScene(scene);
@@ -72,24 +71,22 @@ namespace AuraFarming.Tests.SceneSetup
             }
             finally
             {
-                EditorSceneManager.CloseScene(scene, true);
-                SceneManager.SetActiveScene(previous);
+                EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             }
         }
 
         [Test]
         public void EmptyGameSceneReportsMissingWiring()
         {
-            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             try { Assert.That(SceneSetupBuilder.ValidateScene(scene, "Game"), Is.Not.Empty); }
-            finally { EditorSceneManager.CloseScene(scene, true); }
+            finally { EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single); }
         }
 
         [Test]
         public void GeneratedMenuHasValidWiring()
         {
-            var previous = SceneManager.GetActiveScene();
-            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             try
             {
                 SceneManager.SetActiveScene(scene);
@@ -98,8 +95,7 @@ namespace AuraFarming.Tests.SceneSetup
             }
             finally
             {
-                EditorSceneManager.CloseScene(scene, true);
-                SceneManager.SetActiveScene(previous);
+                EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             }
         }
     }
