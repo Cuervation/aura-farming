@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Event06
   m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.EventDefinition
   id: event-6
-  displayName: Event 6 (placeholder)
-  description: Placeholder only. Event effects are not implemented in the current
-    runtime.
-  effectKey: pending-6
+  displayName: Sanctuary II
+  description: Matching signals are protected from static penalties this round.
+  effectKey: sanctuary

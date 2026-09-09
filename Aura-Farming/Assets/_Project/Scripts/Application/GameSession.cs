@@ -115,6 +115,11 @@ namespace AuraFarming.Application
 
         public CommandResult RevealRound()
         {
+            return RevealRound(null);
+        }
+
+        public CommandResult RevealRound(RoundEvent roundEvent)
+        {
             var phaseError = RejectUnavailablePhase();
             if (phaseError != null)
             {
@@ -127,7 +132,7 @@ namespace AuraFarming.Application
                 return CommandResult.Pending(pending.Id);
             }
 
-            LastOutcome = _resolver.Resolve(_players, _selections.Values.ToArray());
+            LastOutcome = _resolver.Resolve(_players, _selections.Values.ToArray(), roundEvent);
             _players = Copy(LastOutcome.Players);
             Phase = LastOutcome.IsMatchEnded ? MatchPhase.Ended : MatchPhase.Result;
             return CommandResult.Success();

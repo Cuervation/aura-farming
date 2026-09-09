@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Event04
   m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.EventDefinition
   id: event-4
-  displayName: Event 4 (placeholder)
-  description: Placeholder only. Event effects are not implemented in the current
-    runtime.
-  effectKey: pending-4
+  displayName: Pulse Surge II
+  description: The pulse signal rewards are doubled this round.
+  effectKey: pulse-surge

@@ -4,6 +4,7 @@ using AuraFarming.Application;
 using AuraFarming.Domain;
 using AuraFarming.Infrastructure;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AuraFarming.Presentation
 {
@@ -48,12 +49,27 @@ namespace AuraFarming.Presentation
 
             var session = new GameSession(players, signalValues);
             _presenter = new GamePresenter(new SelectionFlowController(session), matchView);
+            matchView.ConfigureEvents(matchConfig.Events, ChooseEvent);
             _presenter.Start();
         }
 
         public void ChooseSignal(int signalId) => _presenter?.ChooseSignal(new SignalCardId(signalId));
         public void ContinueAfterHandover() => _presenter?.ContinueAfterHandover();
         public void RevealRound() => _presenter?.RevealRound();
+        public void ChooseEvent(int eventIndex)
+        {
+            if (_presenter == null || matchConfig == null || eventIndex < 0 || eventIndex >= matchConfig.Events.Count)
+                return;
+            _presenter.SelectEvent(matchConfig.Events[eventIndex].ToDomainEvent());
+        }
         public void StartNextRound() => _presenter?.StartNextRound();
+
+        public void StartNewGame()
+        {
+            PlayerPrefs.DeleteKey(PlayerCountKey);
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        public void ReturnToMainMenu() => SceneManager.LoadScene("MainMenu");
     }
 }

@@ -15,13 +15,15 @@ namespace AuraFarming.Domain
             IReadOnlyList<PlayerId> pulseRecipients,
             IReadOnlyList<PlayerId> staticRecipients,
             IReadOnlyList<PlayerId> winners,
-            bool isDraw)
+            bool isDraw,
+            RoundEvent appliedEvent = null)
         {
             _players = Copy(players);
             _pulseRecipients = Copy(pulseRecipients);
             _staticRecipients = Copy(staticRecipients);
             _winners = Copy(winners);
             IsDraw = isDraw;
+            AppliedEvent = appliedEvent;
         }
 
         public IReadOnlyList<PlayerState> Players => _players;
@@ -29,6 +31,7 @@ namespace AuraFarming.Domain
         public IReadOnlyList<PlayerId> StaticRecipients => _staticRecipients;
         public IReadOnlyList<PlayerId> Winners => _winners;
         public bool IsDraw { get; }
+        public RoundEvent AppliedEvent { get; }
         public bool IsMatchEnded => IsDraw || _winners.Count > 0;
 
         public PlayerState Player(PlayerId id)

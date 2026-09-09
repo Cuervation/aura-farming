@@ -1,4 +1,5 @@
 using UnityEngine;
+using AuraFarming.Domain;
 
 namespace AuraFarming.Infrastructure
 {
@@ -14,6 +15,18 @@ namespace AuraFarming.Infrastructure
         public string DisplayName => displayName;
         public string Description => description;
         public string EffectKey => effectKey;
+
+        public RoundEvent ToDomainEvent()
+        {
+            var effect = effectKey switch
+            {
+                "pulse-surge" => RoundEffect.PulseSurge,
+                "static-storm" => RoundEffect.StaticStorm,
+                "sanctuary" => RoundEffect.Sanctuary,
+                _ => RoundEffect.None
+            };
+            return new RoundEvent(id, displayName, effect);
+        }
 
         public void Initialize(string eventId, string eventName, string eventDescription, string eventEffectKey)
         {

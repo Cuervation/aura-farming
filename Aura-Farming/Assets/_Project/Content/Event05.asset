@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Event05
   m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.EventDefinition
   id: event-5
-  displayName: Event 5 (placeholder)
-  description: Placeholder only. Event effects are not implemented in the current
-    runtime.
-  effectKey: pending-5
+  displayName: Static Storm II
+  description: Static penalties are doubled for matching signals this round.
+  effectKey: static-storm

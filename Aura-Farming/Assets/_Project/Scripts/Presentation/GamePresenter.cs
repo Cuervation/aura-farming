@@ -78,6 +78,12 @@ namespace AuraFarming.Presentation
             }
         }
 
+        public void SelectEvent(RoundEvent roundEvent)
+        {
+            var result = _flow.SelectEvent(roundEvent);
+            RenderResult(result);
+        }
+
         public void StartNextRound()
         {
             var result = _flow.StartNextRound();

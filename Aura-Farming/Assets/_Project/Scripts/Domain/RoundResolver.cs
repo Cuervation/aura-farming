@@ -15,6 +15,14 @@ namespace AuraFarming.Domain
             IReadOnlyList<PlayerState> players,
             IReadOnlyList<Selection> selections)
         {
+            return Resolve(players, selections, null);
+        }
+
+        public RoundOutcome Resolve(
+            IReadOnlyList<PlayerState> players,
+            IReadOnlyList<Selection> selections,
+            RoundEvent roundEvent)
+        {
             var activePlayers = Validate(players, selections);
             var signalGroups = selections.GroupBy(selection => selection.SignalValue).ToArray();
             var staticRecipients = signalGroups
@@ -30,6 +38,13 @@ namespace AuraFarming.Domain
 
             var staticSet = new HashSet<PlayerId>(staticRecipients);
             var pulseSet = new HashSet<PlayerId>(pulseRecipients);
+            var pulseReward = roundEvent != null && roundEvent.Effect == RoundEffect.PulseSurge ? 2 : 1;
+            var staticReward = roundEvent != null && roundEvent.Effect == RoundEffect.StaticStorm ? 2 : 1;
+            if (roundEvent != null && roundEvent.Effect == RoundEffect.Sanctuary)
+            {
+                staticRecipients = Array.Empty<PlayerId>();
+                staticSet.Clear();
+            }
             var activeSet = new HashSet<PlayerId>(activePlayers.Select(player => player.Id));
             var updatedPlayers = players.Select(player =>
             {
@@ -39,8 +54,8 @@ namespace AuraFarming.Domain
                 }
 
                 var scored = player.AddScore(
-                    pulseSet.Contains(player.Id) ? 1 : 0,
-                    staticSet.Contains(player.Id) ? 1 : 0);
+                    pulseSet.Contains(player.Id) ? pulseReward : 0,
+                    staticSet.Contains(player.Id) ? staticReward : 0);
                 return scored.WithElimination(scored.Static >= StaticEliminationThreshold);
             }).ToArray();
 
@@ -59,7 +74,7 @@ namespace AuraFarming.Domain
                     .ToArray();
             }
 
-            return new RoundOutcome(updatedPlayers, pulseRecipients, staticRecipients, winners, isDraw);
+            return new RoundOutcome(updatedPlayers, pulseRecipients, staticRecipients, winners, isDraw, roundEvent);
         }
 
         private static IReadOnlyList<PlayerState> Validate(

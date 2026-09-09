@@ -51,6 +51,22 @@ namespace AuraFarming.Tests.EditMode
         }
 
         [Test]
+        public void SelectEvent_IsPropagatedToRoundOutcome()
+        {
+            var flow = CreateFlow();
+            var roundEvent = new RoundEvent("event-1", "Pulse Surge", RoundEffect.PulseSurge);
+            flow.SelectEvent(roundEvent);
+            flow.SubmitCurrent(new SignalCardId(1));
+            flow.AcknowledgeHandover();
+            flow.SubmitCurrent(new SignalCardId(2));
+
+            var reveal = flow.RevealRound();
+
+            Assert.That(reveal.IsSuccess, Is.True);
+            Assert.That(flow.Snapshot.LastOutcome.AppliedEvent, Is.SameAs(roundEvent));
+        }
+
+        [Test]
         public void StartNextRound_ResetsPrivateFlowForActivePlayers()
         {
             var flow = CreateFlow();

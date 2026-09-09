@@ -20,6 +20,7 @@ namespace AuraFarming.Presentation
         private readonly GameSession _session;
         private readonly HashSet<PlayerId> _submittedPlayers = new HashSet<PlayerId>();
         private PlayerId _nextPlayer;
+        private RoundEvent _roundEvent;
 
         public SelectionFlowController(GameSession session)
         {
@@ -31,6 +32,7 @@ namespace AuraFarming.Presentation
         public SelectionFlowPhase Phase { get; private set; }
         public PlayerId CurrentPlayer { get; private set; }
         public PlayerId NextPlayer => _nextPlayer;
+        public RoundEvent SelectedEvent => _roundEvent;
         public GameSnapshot Snapshot => _session.Snapshot;
 
         public CommandResult SubmitCurrent(SignalCardId cardId)
@@ -81,7 +83,7 @@ namespace AuraFarming.Presentation
                 return CommandResult.Failure(CommandError.InvalidPhase);
             }
 
-            var result = _session.RevealRound();
+            var result = _session.RevealRound(_roundEvent);
             if (result.IsSuccess)
             {
                 Phase = _session.Phase == MatchPhase.Ended
@@ -90,6 +92,14 @@ namespace AuraFarming.Presentation
             }
 
             return result;
+        }
+
+        public CommandResult SelectEvent(RoundEvent roundEvent)
+        {
+            if (Phase != SelectionFlowPhase.AwaitingPrivateSelection && Phase != SelectionFlowPhase.ReadyToReveal)
+                return CommandResult.Failure(CommandError.InvalidPhase);
+            _roundEvent = roundEvent;
+            return CommandResult.Success();
         }
 
         public CommandResult StartNextRound()
@@ -105,6 +115,7 @@ namespace AuraFarming.Presentation
             if (result.IsSuccess)
             {
                 _submittedPlayers.Clear();
+                _roundEvent = null;
                 CurrentPlayer = FirstActivePlayer();
                 Phase = SelectionFlowPhase.AwaitingPrivateSelection;
             }
