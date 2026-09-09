@@ -1,0 +1,28 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.5/staging' branch; Version is '6000.5.10f1 (3bd4f66ad299) revision 3921142'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26100) Enterprise' Language: 'es' Physical Memory: 32400 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-09-09T16:54:30Z
+[Licensing::IpcConnector] Connection to channel LicenseClient-CELESTINOH refused
+Assertion failed on expression: 'SUCCEEDED(hr)'
+Assertion failed on expression: 'SUCCEEDED(hr)'
+[Licensing::Module] Successfully launched the LicensingClient (PId: 57036)
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.5.10f1\Editor\Unity.exe
+-batchmode
+-nographics
+-projectPath
+C:\Users\celestinoh\Documents\ChatGPT\Aura-Game\Aura-Farming
+-runTests
+-testPlatform
+editmode
+-testResults
+C:\Users\celestinoh\Documents\ChatGPT\Aura-Game\Aura-Farming\TestResults.xml
+-logFile
+C:\Users\celestinoh\Documents\ChatGPT\Aura-Game\Aura-Farming\UnityTestRunner.log
+Successfully changed project path to: C:\Users\celestinoh\Documents\ChatGPT\Aura-Game\Aura-Farming
+C:/Users/celestinoh/Documents/ChatGPT/Aura-Game/Aura-Farming
+Exiting without the bug reporter. Application will terminate with return code 1

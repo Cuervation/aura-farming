@@ -168,7 +168,13 @@ namespace AuraFarming.Presentation
 
                 var artwork = signals[index]?.Artwork;
                 slot.sprite = artwork;
-                slot.preserveAspect = true;
+                // Signal buttons are intentionally wide for the compact 3x3 layout. Fill the
+                // complete interactive surface so premium art is visible instead of collapsing
+                // into a narrow centered strip inside the portrait sprite's aspect ratio.
+                slot.preserveAspect = false;
+                slot.type = Image.Type.Simple;
+                slot.color = Color.white;
+                slot.transform.SetAsFirstSibling();
                 slot.enabled = artwork != null;
             }
 
@@ -181,7 +187,7 @@ namespace AuraFarming.Presentation
                 }
 
                 slot.sprite = null;
-                slot.preserveAspect = true;
+                slot.preserveAspect = false;
                 slot.enabled = false;
             }
         }
