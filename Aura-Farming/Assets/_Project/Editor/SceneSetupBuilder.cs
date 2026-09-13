@@ -22,8 +22,12 @@ namespace AuraFarming.Editor
         private const string SceneFolder = "Assets/_Project/Scenes";
         private const string ContentFolder = "Assets/_Project/Content";
         private static readonly string[] SceneNames = { "Bootstrap", "MainMenu", "Game" };
-        private static readonly Color Background = new Color(0.035f, 0.045f, 0.095f);
-        private static readonly Color Accent = new Color(0.12f, 0.75f, 0.8f);
+        // Original visual language: warm paper, ink and a single electric accent.
+        // Do not imitate the commercial card faces; this only establishes an original,
+        // table-top-card-game hierarchy for the digital prototype.
+        private static readonly Color Background = new Color(0.055f, 0.05f, 0.035f);
+        private static readonly Color Accent = new Color(0.96f, 0.67f, 0.12f);
+        private static readonly Color Ink = new Color(0.10f, 0.075f, 0.035f);
 
         [MenuItem("Aura Farming/Setup/Create Missing Scenes and Content")]
         public static void CreateMissingScenesAndContent()
@@ -67,15 +71,54 @@ namespace AuraFarming.Editor
             Debug.Log("Aura Farming setup saved. Open Bootstrap and enter Play Mode. No player build performed.");
         }
 
+        [MenuItem("Aura Farming/Setup/Rebuild Presentation UI")]
+        public static void RebuildPresentationUi()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("Exit Play Mode before rebuilding the presentation UI.");
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+
+            var config = AssetDatabase.LoadAssetAtPath<MatchConfig>($"{ContentFolder}/MatchConfig.asset");
+            if (!ContentValidator.Validate(config).IsValid)
+                throw new InvalidOperationException("MatchConfig is invalid; UI was not rebuilt.");
+
+            foreach (var name in new[] { "MainMenu", "Game" })
+            {
+                var path = ScenePath(name);
+                // Single mode removes any loaded copy of the target before we save to its
+                // path. It also avoids Unity's prohibition on opening an additive scene while
+                // an unsaved temporary scene is active.
+                var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+                try
+                {
+                    if (name == "MainMenu") PopulateMainMenu(); else PopulateGame(config);
+                    var errors = ValidateScene(scene, name);
+                    if (errors.Count != 0) throw new InvalidOperationException(string.Join("; ", errors));
+                    if (!EditorSceneManager.SaveScene(scene, path, true))
+                        throw new IOException("Could not save " + path);
+                }
+                finally
+                {
+                    // Keep the final rebuilt scene open so the editor never falls back to a
+                    // stale loaded copy of the scene that has just been overwritten.
+                }
+            }
+            AssetDatabase.SaveAssets();
+            ValidateSavedSetup();
+            Debug.Log("Aura Farming presentation UI rebuilt. No player build performed.");
+        }
+
         private static MatchConfig CreateContent()
         {
-            var signals = new SignalDefinition[9];
+            var signals = new SignalDefinition[10];
             var events = new EventDefinition[6];
             for (var i = 0; i < signals.Length; i++)
             {
                 var n = i + 1;
+                var catalog = new[] { ("captain", "Modo Capitán", 2500), ("six-seven", "Six-Seven", 2000), ("aura-walk", "Aura Walk", 1800), ("mewing", "Mewing", 1500), ("stinky-dance", "Stinky Dance", 1200), ("anime-pose", "Pose Anime", 1000), ("sigma-look", "Mirada Sigma", 800), ("adjust-glasses", "Ajuste de Gafas", 600), ("silence", "Gesto de Silencio", 400), ("snap", "El Chasquido", 300) };
+                var item = catalog[i];
                 signals[i] = LoadOrCreate<SignalDefinition>($"{ContentFolder}/Signal{n:00}.asset",
-                    s => s.Initialize($"signal-{n}", $"Signal {n}", n));
+                    s => s.Initialize(n, item.Item1, item.Item2, item.Item3));
             }
             for (var i = 0; i < events.Length; i++)
             {
@@ -104,16 +147,18 @@ namespace AuraFarming.Editor
             var canvas = CreateCanvas();
             var view = canvas.gameObject.AddComponent<MainMenuView>();
             var title = Panel(canvas, "Title");
-            Label(title.transform, "NEON SIGNAL CLASH", 52, 180);
-            Label(title.transform, "LOCAL PASS & PLAY  /  PROTOTYPE", 23, 110);
-            Button(title.transform, "Play", 0, 10, view.ShowSetup);
-            Button(title.transform, "How to play", 0, -75, view.ShowHelp);
+            Label(title.transform, "AURA FARMING", 64, 190);
+            Label(title.transform, "CHOOSE IN SECRET  ·  REVEAL TOGETHER  ·  FARM AURA", 19, 122);
+            Label(title.transform, "THE TABLE IS YOUR STAGE", 28, 48);
+            Button(title.transform, "PLAY A MATCH", 0, -42, view.ShowSetup);
+            Button(title.transform, "HOW IT WORKS", 0, -125, view.ShowHelp);
             var help = Panel(canvas, "Help");
-            Label(help.transform, "HOW TO PLAY", 42, 210);
-            Label(help.transform, "Choose one Signal in private, then pass the device.\nAll players reveal together. Matching Signals receive Static.\nThe highest unique Signal receives Pulse.\n5 Pulse wins. 3 Static eliminates. Last active player wins.\nEvent effects, artwork and audio are still pending.", 25, 30, 220);
-            Button(help.transform, "Back", 0, -180, view.ShowTitle);
+            Label(help.transform, "THE RULES", 52, 215);
+            Label(help.transform, "1  PICK A SIGNAL IN SECRET\n2  PASS THE DEVICE\n3  REVEAL AT THE SAME TIME\n4  THE HIGHEST UNIQUE SIGNAL FARMS PULSE\n\n5 PULSE WINS. 3 STATIC ELIMINATES.", 25, 15, 270);
+            Button(help.transform, "BACK", 0, -205, view.ShowTitle);
             var setup = Panel(canvas, "Setup");
-            Label(setup.transform, "PLAYERS", 42, 180);
+            Label(setup.transform, "SET THE TABLE", 52, 205);
+            Label(setup.transform, "HOW MANY PLAYERS?", 20, 135);
             var dropdownObject = DefaultControls.CreateDropdown(new DefaultControls.Resources());
             dropdownObject.name = "PlayerCount";
             dropdownObject.transform.SetParent(setup.transform, false);
@@ -123,8 +168,8 @@ namespace AuraFarming.Editor
             dropdown.AddOptions(new List<string> { "2 players", "3 players", "4 players", "5 players" });
             foreach (var text in dropdownObject.GetComponentsInChildren<Text>(true))
             { text.font = Font(); text.fontSize = 22; }
-            Button(setup.transform, "Start game", 0, -40, view.StartGame);
-            Button(setup.transform, "Back", 0, -125, view.ShowTitle);
+            Button(setup.transform, "START THE MATCH", 0, -40, view.StartGame);
+            Button(setup.transform, "BACK", 0, -125, view.ShowTitle);
             view.Configure(title, help, setup, dropdown);
             view.ShowTitle();
         }
@@ -134,27 +179,31 @@ namespace AuraFarming.Editor
             var canvas = CreateCanvas();
             var view = canvas.gameObject.AddComponent<MatchView>();
             var root = new GameObject("GameCompositionRoot").AddComponent<GameCompositionRoot>();
-            var hud = Label(canvas, "Score", 20, 280, 95);
-            var status = Label(canvas, "Status", 26, 190, 75);
+            var hud = Label(canvas, "Score", 18, 316, 44);
+            var status = Label(canvas, "Status", 25, 258, 54);
             var selection = Panel(canvas, "Selection", false);
-            var signalArtwork = new Image[9];
-            for (var i = 1; i <= 9; i++)
+            var signalArtwork = new Image[10];
+            for (var i = 1; i <= 10; i++)
             {
-                var button = Button(selection.transform, $"Signal {i}", (i - 1) % 3 * 240 - 240,
-                    80 - (i - 1) / 3 * 95, null, 215);
+                var button = SignalCard(selection.transform, i, (i - 1) % 3 * 200 - 200,
+                    135 - (i - 1) / 3 * 185);
                 UnityEventTools.AddIntPersistentListener(button.onClick, root.ChooseSignal, i);
                 signalArtwork[i - 1] = Artwork(button);
             }
             var pass = Panel(canvas, "Pass", false);
-            Label(pass.transform, "KEEP YOUR SIGNAL PRIVATE", 30, 50);
-            Button(pass.transform, "I am ready", 0, -60, root.ContinueAfterHandover);
+            Label(pass.transform, "KEEP YOUR SIGNAL PRIVATE", 34, 65);
+            Label(pass.transform, "PASS THE DEVICE ONLY WHEN YOU ARE READY", 17, 18);
+            Button(pass.transform, "I AM READY", 0, -68, root.ContinueAfterHandover);
             var reveal = Panel(canvas, "Reveal", false);
-            Button(reveal.transform, "Reveal signals", 0, 0, root.RevealRound);
+            Label(reveal.transform, "EVERYONE LOCKED IN", 34, 70);
+            Button(reveal.transform, "REVEAL SIGNALS", 0, -20, root.RevealRound);
             var result = Panel(canvas, "Result", false);
-            Button(result.transform, "Next round", 0, 0, root.StartNextRound);
+            Button(result.transform, "NEXT ROUND", 0, -10, root.StartNextRound);
             var end = Panel(canvas, "End", false);
-            Label(end.transform, "MATCH COMPLETE", 44, 20);
-            Label(end.transform, "Stop Play Mode to return to the editor.", 22, -60);
+            Label(end.transform, "MATCH COMPLETE", 52, 72);
+            Label(end.transform, "THE TABLE HAS SPOKEN", 21, 16);
+            Button(end.transform, "PLAY AGAIN", -170, -82, root.StartNewGame, 300);
+            Button(end.transform, "MAIN MENU", 170, -82, root.ReturnToMainMenu, 300);
             view.Configure(selection, pass, reveal, result, end, hud, status);
             view.ConfigureSignalArtworkSlots(signalArtwork);
             view.ApplySignalArtwork(config.Signals);
@@ -210,10 +259,30 @@ namespace AuraFarming.Editor
             go.GetComponent<Image>().color = Accent;
             var text = Label(go.transform, label, 24, 0, 60);
             text.rectTransform.sizeDelta = new Vector2(width - 12, 60);
-            text.color = Background;
+            text.color = Ink;
+            text.fontStyle = FontStyle.Bold;
             var button = go.GetComponent<Button>();
             button.targetGraphic = go.GetComponent<Image>();
             if (action != null) UnityEventTools.AddPersistentListener(button.onClick, action);
+            return button;
+        }
+
+        private static Button SignalCard(Transform parent, int id, float x, float y)
+        {
+            var button = Button(parent, $"Signal {id}", x, y, null, 170);
+            var rect = button.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(170, 170);
+            button.GetComponent<Image>().color = new Color(0.15f, 0.12f, 0.075f);
+            var label = button.GetComponentInChildren<Text>();
+            label.text = $"SIGNAL {id:00}";
+            label.fontSize = 18;
+            label.color = new Color(1f, 0.92f, 0.70f);
+            label.alignment = TextAnchor.MiddleLeft;
+            label.rectTransform.anchorMin = new Vector2(0f, 0f);
+            label.rectTransform.anchorMax = new Vector2(1f, 0f);
+            label.rectTransform.pivot = new Vector2(.5f, 0f);
+            label.rectTransform.anchoredPosition = new Vector2(14f, 8f);
+            label.rectTransform.sizeDelta = new Vector2(-28f, 30f);
             return button;
         }
 
@@ -222,10 +291,10 @@ namespace AuraFarming.Editor
             var go = new GameObject("Artwork", typeof(RectTransform), typeof(Image));
             go.transform.SetParent(button.transform, false);
             var rect = go.GetComponent<RectTransform>();
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
+            rect.anchorMin = new Vector2(0f, .28f);
+            rect.anchorMax = new Vector2(1f, 1f);
+            rect.offsetMin = new Vector2(9f, 7f);
+            rect.offsetMax = new Vector2(-9f, -7f);
             var image = go.GetComponent<Image>();
             image.raycastTarget = false;
             image.preserveAspect = true;
@@ -282,7 +351,7 @@ namespace AuraFarming.Editor
                 if (view == null)
                     throw new InvalidOperationException("Game scene has no MatchView.");
                 var buttons = components.OfType<Button>().ToArray();
-                var slots = Enumerable.Range(1, 9)
+                var slots = Enumerable.Range(1, 10)
                     .Select(id => buttons.SingleOrDefault(button => button.name == $"Signal {id}"))
                     .Select(button => button == null
                         ? throw new InvalidOperationException("Game scene is missing a Signal button.")

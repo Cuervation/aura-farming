@@ -9,6 +9,8 @@ namespace AuraFarming.Infrastructure
         InvalidSignalCount,
         MissingSignal,
         UndefinedSignalId,
+        UndefinedSignalCardId,
+        DuplicateSignalCardId,
         DuplicateSignalId,
         UndefinedSignalName,
         UndefinedSignalValue,
@@ -45,7 +47,7 @@ namespace AuraFarming.Infrastructure
 
     public static class ContentValidator
     {
-        private const int RequiredSignalCount = 9;
+        private const int RequiredSignalCount = 10;
         private const int RequiredEventCount = 6;
 
         public static ContentValidationResult Validate(MatchConfig config)
@@ -72,6 +74,7 @@ namespace AuraFarming.Infrastructure
             }
 
             var ids = new HashSet<string>(StringComparer.Ordinal);
+            var cardIds = new HashSet<int>();
             for (var index = 0; index < signals.Count; index++)
             {
                 var signal = signals[index];
@@ -79,6 +82,15 @@ namespace AuraFarming.Infrastructure
                 {
                     AddOnce(errors, ContentValidationError.MissingSignal);
                     continue;
+                }
+
+                if (signal.CardIdValue <= 0)
+                {
+                    AddOnce(errors, ContentValidationError.UndefinedSignalCardId);
+                }
+                else if (!cardIds.Add(signal.CardIdValue))
+                {
+                    AddOnce(errors, ContentValidationError.DuplicateSignalCardId);
                 }
 
                 if (string.IsNullOrWhiteSpace(signal.Id))

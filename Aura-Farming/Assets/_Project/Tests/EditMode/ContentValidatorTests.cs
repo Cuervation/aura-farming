@@ -21,9 +21,9 @@ namespace AuraFarming.Tests.EditMode
         }
 
         [Test]
-        public void Validate_AcceptsNineUniqueSignalsAndSixCompleteEvents()
+        public void Validate_AcceptsTenUniqueSignalsAndSixCompleteEvents()
         {
-            var config = CreateConfig(CreateSignals(9), CreateEvents(6));
+            var config = CreateConfig(CreateSignals(10), CreateEvents(6));
 
             var result = ContentValidator.Validate(config);
 
@@ -31,10 +31,20 @@ namespace AuraFarming.Tests.EditMode
             Assert.That(result.Errors, Is.Empty);
         }
 
+
+        [Test]
+        public void Validate_RejectsDuplicateSignalCardIds()
+        {
+            var signals = CreateSignals(10);
+            signals[9].Initialize(1, "snap", "Snap", 300);
+            var result = ContentValidator.Validate(CreateConfig(signals, CreateEvents(6)));
+            Assert.That(result.Errors, Does.Contain(ContentValidationError.DuplicateSignalCardId));
+        }
+
         [Test]
         public void Validate_RejectsDuplicateSignalIdentifiers()
         {
-            var signals = CreateSignals(9);
+            var signals = CreateSignals(10);
             signals[8].Initialize("signal-1", "Duplicate", 9);
             var config = CreateConfig(signals, CreateEvents(6));
 
@@ -47,7 +57,7 @@ namespace AuraFarming.Tests.EditMode
         [Test]
         public void Validate_RejectsAnyEventCountOtherThanSix()
         {
-            var config = CreateConfig(CreateSignals(9), CreateEvents(5));
+            var config = CreateConfig(CreateSignals(10), CreateEvents(5));
 
             var result = ContentValidator.Validate(config);
 
@@ -60,7 +70,7 @@ namespace AuraFarming.Tests.EditMode
         {
             var events = CreateEvents(6);
             events[0].Initialize("event-1", "Silent Shift", "Shown before selection", string.Empty);
-            var config = CreateConfig(CreateSignals(9), events);
+            var config = CreateConfig(CreateSignals(10), events);
 
             var result = ContentValidator.Validate(config);
 
@@ -73,7 +83,7 @@ namespace AuraFarming.Tests.EditMode
             return Enumerable.Range(1, count).Select(index =>
             {
                 var signal = Track<SignalDefinition>();
-                signal.Initialize($"signal-{index}", $"Signal {index}", index);
+                signal.Initialize(index, $"signal-{index}", $"Signal {index}", index);
                 return signal;
             }).ToArray();
         }

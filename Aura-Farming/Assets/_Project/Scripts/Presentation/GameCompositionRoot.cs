@@ -42,13 +42,14 @@ namespace AuraFarming.Presentation
             var signalValues = new Dictionary<SignalCardId, int>();
             for (var index = 0; index < matchConfig.Signals.Count; index++)
             {
-                signalValues.Add(new SignalCardId(index + 1), matchConfig.Signals[index].Value);
+                signalValues.Add(matchConfig.Signals[index].CardId, matchConfig.Signals[index].Value);
             }
 
             matchView.ApplySignalArtwork(matchConfig.Signals);
 
             var session = new GameSession(players, signalValues);
-            _presenter = new GamePresenter(new SelectionFlowController(session), matchView);
+            var winnerAnimationPlayer = GetComponent<WinnerAnimationDirector>();
+            _presenter = new GamePresenter(new SelectionFlowController(session), matchView, winnerAnimationPlayer);
             matchView.ConfigureEvents(matchConfig.Events, ChooseEvent);
             _presenter.Start();
         }

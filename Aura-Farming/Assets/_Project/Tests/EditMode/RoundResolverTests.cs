@@ -214,6 +214,22 @@ namespace AuraFarming.Tests.EditMode
             Assert.That(outcome.IsDraw, Is.False);
             Assert.That(outcome.Winners, Is.EquivalentTo(new[] { players[0].Id, players[1].Id }));
         }
+        [Test]
+        public void Resolve_ReportsHighestUniqueWinningCard()
+        {
+            var players = CreatePlayers(3);
+            var outcome = _resolver.Resolve(players, new[] { Select(players[0], 1), Select(players[1], 9), Select(players[2], 4) });
+            Assert.That(outcome.WinningSignalCardId, Is.EqualTo(new SignalCardId(9)));
+        }
+
+        [Test]
+        public void Resolve_AllCollisionsHaveNoWinningCard()
+        {
+            var players = CreatePlayers(3);
+            var outcome = _resolver.Resolve(players, new[] { Select(players[0], 2), Select(players[1], 2), Select(players[2], 2) });
+            Assert.That(outcome.WinningSignalCardId.HasValue, Is.False);
+        }
+
         private static IReadOnlyList<PlayerState> CreatePlayers(int count)
         {
             return Enumerable.Range(1, count).Select(value => new PlayerState(new PlayerId(value))).ToArray();

@@ -33,6 +33,50 @@ namespace AuraFarming.Tests.EditMode
             Assert.That(secondSlot.enabled, Is.False);
         }
 
+        [Test]
+        public void ApplySignalArtwork_UsesCardIdInsteadOfCatalogOrder()
+        {
+            var view = Create<MatchView>("View");
+            var firstSlot = Create<Image>("First slot");
+            var secondSlot = Create<Image>("Second slot");
+            var firstArtwork = CreateSprite(Color.cyan);
+            var secondArtwork = CreateSprite(Color.magenta);
+            var firstSignal = CreateAsset<SignalDefinition>("Signal 1");
+            var secondSignal = CreateAsset<SignalDefinition>("Signal 2");
+            firstSignal.Initialize("signal-1", "Signal 1", 1, firstArtwork);
+            secondSignal.Initialize("signal-2", "Signal 2", 2, secondArtwork);
+
+            view.ConfigureSignalArtworkSlots(new[] { firstSlot, secondSlot });
+            view.ApplySignalArtwork(new[] { secondSignal, firstSignal });
+
+            Assert.That(firstSlot.sprite, Is.EqualTo(firstArtwork));
+            Assert.That(secondSlot.sprite, Is.EqualTo(secondArtwork));
+        }
+
+        [Test]
+        public void ApplySignalArtwork_LeavesMissingCardIdSlotEmpty()
+        {
+            var view = Create<MatchView>("View");
+            var firstSlot = Create<Image>("First slot");
+            var eighthSlot = Create<Image>("Eighth slot");
+            var tenthSlot = Create<Image>("Tenth slot");
+            var eighthArtwork = CreateSprite(Color.yellow);
+            var eighthSignal = CreateAsset<SignalDefinition>("Signal 8");
+            var tenthSignal = CreateAsset<SignalDefinition>("Snap");
+            eighthSignal.Initialize("signal-8", "Signal 8", 8, eighthArtwork);
+            tenthSignal.Initialize("signal-10", "Snap", 10);
+
+            view.ConfigureSignalArtworkSlots(new[] { firstSlot, eighthSlot, tenthSlot }, new[] { 1, 8, 10 });
+            view.ApplySignalArtwork(new[] { tenthSignal, eighthSignal });
+
+            Assert.That(firstSlot.sprite, Is.Null);
+            Assert.That(firstSlot.enabled, Is.False);
+            Assert.That(eighthSlot.sprite, Is.EqualTo(eighthArtwork));
+            Assert.That(eighthSlot.enabled, Is.True);
+            Assert.That(tenthSlot.sprite, Is.Null);
+            Assert.That(tenthSlot.enabled, Is.False);
+        }
+
         [TearDown]
         public void TearDown()
         {
@@ -69,3 +113,4 @@ namespace AuraFarming.Tests.EditMode
         }
     }
 }
+

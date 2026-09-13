@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09575e545ebd3984cbe69896f9181246, type: 3}
   m_Name: Signal09
   m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.SignalDefinition
-  id: signal-9
-  displayName: Signal 9
-  value: 9
+  cardId: 9
+  id: silence
+  displayName: Gesto de Silencio
+  value: 400
   artwork: {fileID: 21300000, guid: b5cfd357be7b416098ee8de6297d64d4, type: 3}

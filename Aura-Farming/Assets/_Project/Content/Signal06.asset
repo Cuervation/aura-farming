@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09575e545ebd3984cbe69896f9181246, type: 3}
   m_Name: Signal06
   m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.SignalDefinition
-  id: signal-6
-  displayName: Signal 6
-  value: 6
+  cardId: 6
+  id: anime-pose
+  displayName: Pose Anime
+  value: 1000
   artwork: {fileID: 21300000, guid: a8361a3240254059bc8140ed186fc976, type: 3}

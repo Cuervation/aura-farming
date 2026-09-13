@@ -20,19 +20,21 @@ namespace AuraFarming.Presentation
         [SerializeField] private Text hudText;
         [SerializeField] private Text statusText;
         [SerializeField] private Image[] signalArtwork = Array.Empty<Image>();
+        [SerializeField] private int[] signalArtworkCardIds = Array.Empty<int>();
+        [SerializeField] private WinnerAnimationDirector winnerAnimationDirector;
         private Action<int> _chooseEvent;
         private GameObject _eventPanel;
 
         private static readonly Color[] SignalCardColors =
         {
-            new(0.92f, 0.13f, 0.48f, 1f), // pitaya pink
-            new(0.68f, 0.16f, 0.64f, 1f), // dragonfruit purple
-            new(0.33f, 0.13f, 0.46f, 1f), // deep plum
+            new(0.15f, 0.12f, 0.075f, 1f),
+            new(0.18f, 0.14f, 0.08f, 1f),
+            new(0.12f, 0.11f, 0.075f, 1f),
         };
 
-        private static readonly Color EventColor = new(0.82f, 0.12f, 0.46f, 1f);
-        private static readonly Color EventHighlightColor = new(1f, 0.24f, 0.62f, 1f);
-        private static readonly Color ShadowColor = new(0.09f, 0.02f, 0.12f, 0.9f);
+        private static readonly Color EventColor = new(0.21f, 0.16f, 0.08f, 1f);
+        private static readonly Color EventHighlightColor = new(0.96f, 0.67f, 0.12f, 1f);
+        private static readonly Color ShadowColor = new(0.015f, 0.012f, 0.008f, 0.92f);
 
         public void Configure(
             GameObject selection,
@@ -55,6 +57,13 @@ namespace AuraFarming.Presentation
         public void ConfigureSignalArtworkSlots(Image[] slots)
         {
             signalArtwork = slots ?? Array.Empty<Image>();
+            signalArtworkCardIds = Array.Empty<int>();
+        }
+
+        public void ConfigureSignalArtworkSlots(Image[] slots, int[] cardIds)
+        {
+            signalArtwork = slots ?? Array.Empty<Image>();
+            signalArtworkCardIds = cardIds ?? Array.Empty<int>();
         }
 
         public void ConfigureEvents(IReadOnlyList<EventDefinition> events, Action<int> chooseEvent)
@@ -69,9 +78,9 @@ namespace AuraFarming.Presentation
             var rows = Mathf.CeilToInt(events.Count / (float)columns);
             root.anchorMin = new Vector2(0f, 0f); root.anchorMax = new Vector2(1f, 0f);
             root.pivot = new Vector2(.5f, 0f); root.anchoredPosition = new Vector2(0f, 14f);
-            root.sizeDelta = new Vector2(0f, rows * 42f + (rows - 1) * 6f + 16f);
+            root.sizeDelta = new Vector2(0f, rows * 38f + (rows - 1) * 6f + 16f);
             var panelBackground = _eventPanel.GetComponent<Image>();
-            panelBackground.color = new Color(0.12f, 0.02f, 0.16f, .88f);
+            panelBackground.color = new Color(0.05f, 0.04f, 0.025f, .92f);
             panelBackground.raycastTarget = false;
             for (var index = 0; index < events.Count; index++)
             {
@@ -90,14 +99,14 @@ namespace AuraFarming.Presentation
                 text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
                 text.text = events[index].DisplayName;
                 text.alignment = TextAnchor.MiddleCenter;
-                text.color = Color.white;
+                text.color = new Color(1f, .93f, .74f);
                 text.fontStyle = FontStyle.Bold;
                 text.resizeTextForBestFit = true;
                 text.resizeTextMinSize = 12;
                 text.resizeTextMaxSize = 20;
                 text.horizontalOverflow = HorizontalWrapMode.Wrap;
                 text.verticalOverflow = VerticalWrapMode.Truncate;
-                AddOutline(label, new Color(0.22f, 0.02f, 0.18f, 0.95f), new Vector2(1f, -1f));
+                AddOutline(label, new Color(0.04f, 0.03f, 0.015f, 0.95f), new Vector2(1f, -1f));
                 var labelRect = label.GetComponent<RectTransform>(); labelRect.anchorMin = Vector2.zero; labelRect.anchorMax = Vector2.one; labelRect.offsetMin = Vector2.zero; labelRect.offsetMax = Vector2.zero;
                 var captured = index; buttonObject.GetComponent<Button>().onClick.AddListener(() => _chooseEvent?.Invoke(captured));
             }
@@ -112,13 +121,15 @@ namespace AuraFarming.Presentation
             for (var index = 0; index < signalButtons.Length; index++)
             {
                 var baseColor = SignalCardColors[index % SignalCardColors.Length];
-                StyleButton(signalButtons[index], baseColor, Color.Lerp(baseColor, Color.white, .2f), 1.1f);
+                StyleButton(signalButtons[index], baseColor, EventHighlightColor, 1.04f);
+                var rect = signalButtons[index].GetComponent<RectTransform>();
+                rect.sizeDelta = new Vector2(170f, 170f);
 
                 foreach (var label in signalButtons[index].GetComponentsInChildren<Text>(true))
                 {
-                    label.color = Color.white;
+                    label.color = new Color(1f, .92f, .70f);
                     label.fontStyle = FontStyle.Bold;
-                    AddOutline(label.gameObject, new Color(0.18f, 0.01f, 0.14f, 0.95f), new Vector2(1.5f, -1.5f));
+                    AddOutline(label.gameObject, new Color(0.04f, 0.03f, 0.015f, 0.95f), new Vector2(1.5f, -1.5f));
                 }
             }
         }
@@ -137,7 +148,7 @@ namespace AuraFarming.Presentation
             colors.fadeDuration = .12f;
             button.colors = colors;
 
-            AddOutline(button.gameObject, new Color(1f, 0.42f, 0.72f, .8f), new Vector2(1.5f, -1.5f));
+            AddOutline(button.gameObject, new Color(0.96f, 0.67f, 0.12f, .9f), new Vector2(1.5f, -1.5f));
             var shadow = button.GetComponent<Shadow>() ?? button.gameObject.AddComponent<Shadow>();
             shadow.effectColor = ShadowColor;
             shadow.effectDistance = new Vector2(3f, -4f);
@@ -157,28 +168,7 @@ namespace AuraFarming.Presentation
                 return;
             }
 
-            var count = Math.Min(signalArtwork.Length, signals.Count);
-            for (var index = 0; index < count; index++)
-            {
-                var slot = signalArtwork[index];
-                if (slot == null)
-                {
-                    continue;
-                }
-
-                var artwork = signals[index]?.Artwork;
-                slot.sprite = artwork;
-                // Signal buttons are intentionally wide for the compact 3x3 layout. Fill the
-                // complete interactive surface so premium art is visible instead of collapsing
-                // into a narrow centered strip inside the portrait sprite's aspect ratio.
-                slot.preserveAspect = false;
-                slot.type = Image.Type.Simple;
-                slot.color = Color.white;
-                slot.transform.SetAsFirstSibling();
-                slot.enabled = artwork != null;
-            }
-
-            for (var index = count; index < signalArtwork.Length; index++)
+            for (var index = 0; index < signalArtwork.Length; index++)
             {
                 var slot = signalArtwork[index];
                 if (slot == null)
@@ -187,9 +177,36 @@ namespace AuraFarming.Presentation
                 }
 
                 slot.sprite = null;
-                slot.preserveAspect = false;
                 slot.enabled = false;
+                slot.preserveAspect = false;
+
+                SignalDefinition signal = null;
+                var cardId = index < signalArtworkCardIds.Length && signalArtworkCardIds[index] > 0
+                    ? signalArtworkCardIds[index]
+                    : index + 1;
+                for (var signalIndex = 0; signalIndex < signals.Count; signalIndex++)
+                {
+                    if (signals[signalIndex] != null && signals[signalIndex].CardIdValue == cardId)
+                    {
+                        signal = signals[signalIndex];
+                        break;
+                    }
+                }
+
+                var artwork = signal?.Artwork;
+                slot.sprite = artwork;
+                // Each artwork is now presented inside a card frame. Preserve its original
+                // proportions and crop-to-cover the art well; stretching is what made the old
+                // UI read as nine banner ads, while letterboxing reduced portrait art to a line.
+                slot.preserveAspect = artwork != null;
+                slot.type = Image.Type.Simple;
+                var fitter = slot.GetComponent<AspectRatioFitter>() ?? slot.gameObject.AddComponent<AspectRatioFitter>();
+                fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+                slot.color = Color.white;
+                slot.transform.SetAsFirstSibling();
+                slot.enabled = artwork != null;
             }
+
         }
 
         public void Render(GameSnapshot snapshot)
@@ -228,6 +245,7 @@ namespace AuraFarming.Presentation
         public void ShowReveal(RoundOutcome outcome)
         {
             ShowOnly(resultPanel);
+            winnerAnimationDirector?.PlayWinningAnimation(outcome);
             var pulse = outcome.PulseRecipients.Count == 0
                 ? "No Pulse"
                 : $"Pulse: {string.Join(", ", outcome.PulseRecipients.Select(id => $"P{id.Value}"))}";
@@ -260,3 +278,6 @@ namespace AuraFarming.Presentation
         }
     }
 }
+
+
+

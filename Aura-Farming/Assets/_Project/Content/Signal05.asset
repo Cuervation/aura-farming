@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09575e545ebd3984cbe69896f9181246, type: 3}
   m_Name: Signal05
   m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.SignalDefinition
-  id: signal-5
-  displayName: Signal 5
-  value: 5
+  cardId: 5
+  id: stinky-dance
+  displayName: Stinky Dance
+  value: 1200
   artwork: {fileID: 21300000, guid: 888ee8976b724d09980737a7e11d5a05, type: 3}

@@ -9,6 +9,7 @@ namespace AuraFarming.Domain
         private readonly IReadOnlyList<PlayerId> _pulseRecipients;
         private readonly IReadOnlyList<PlayerId> _staticRecipients;
         private readonly IReadOnlyList<PlayerId> _winners;
+        private readonly SignalCardId? _winningSignalCardId;
 
         public RoundOutcome(
             IReadOnlyList<PlayerState> players,
@@ -16,12 +17,14 @@ namespace AuraFarming.Domain
             IReadOnlyList<PlayerId> staticRecipients,
             IReadOnlyList<PlayerId> winners,
             bool isDraw,
-            RoundEvent appliedEvent = null)
+            RoundEvent appliedEvent = null,
+            SignalCardId? winningSignalCardId = null)
         {
             _players = Copy(players);
             _pulseRecipients = Copy(pulseRecipients);
             _staticRecipients = Copy(staticRecipients);
             _winners = Copy(winners);
+            _winningSignalCardId = winningSignalCardId;
             IsDraw = isDraw;
             AppliedEvent = appliedEvent;
         }
@@ -30,6 +33,7 @@ namespace AuraFarming.Domain
         public IReadOnlyList<PlayerId> PulseRecipients => _pulseRecipients;
         public IReadOnlyList<PlayerId> StaticRecipients => _staticRecipients;
         public IReadOnlyList<PlayerId> Winners => _winners;
+        public SignalCardId? WinningSignalCardId => _winningSignalCardId;
         public bool IsDraw { get; }
         public RoundEvent AppliedEvent { get; }
         public bool IsMatchEnded => IsDraw || _winners.Count > 0;

@@ -29,6 +29,12 @@ namespace AuraFarming.Domain
                 .Where(group => group.Count() > 1)
                 .SelectMany(group => group.Select(selection => selection.PlayerId))
                 .ToArray();
+            var pulseGroups = signalGroups
+                .Where(group => group.Count() == 1)
+                .OrderByDescending(group => group.Key)
+                .Take(1)
+                .ToArray();
+            var winningSignalCardId = pulseGroups.Length == 0 ? (SignalCardId?)null : pulseGroups[0].Single().CardId;
             var pulseRecipients = signalGroups
                 .Where(group => group.Count() == 1)
                 .OrderByDescending(group => group.Key)
@@ -74,7 +80,7 @@ namespace AuraFarming.Domain
                     .ToArray();
             }
 
-            return new RoundOutcome(updatedPlayers, pulseRecipients, staticRecipients, winners, isDraw, roundEvent);
+            return new RoundOutcome(updatedPlayers, pulseRecipients, staticRecipients, winners, isDraw, roundEvent, winningSignalCardId);
         }
 
         private static IReadOnlyList<PlayerState> Validate(

@@ -19,11 +19,13 @@ namespace AuraFarming.Presentation
     {
         private readonly SelectionFlowController _flow;
         private readonly IMatchView _view;
+        private readonly IWinnerAnimationPlayer _winnerAnimationPlayer;
 
-        public GamePresenter(SelectionFlowController flow, IMatchView view)
+        public GamePresenter(SelectionFlowController flow, IMatchView view, IWinnerAnimationPlayer winnerAnimationPlayer = null)
         {
             _flow = flow ?? throw new ArgumentNullException(nameof(flow));
             _view = view ?? throw new ArgumentNullException(nameof(view));
+            _winnerAnimationPlayer = winnerAnimationPlayer ?? new ImmediateWinnerAnimationPlayer();
         }
 
         public void Start()
@@ -71,11 +73,18 @@ namespace AuraFarming.Presentation
             }
 
             var outcome = _flow.Snapshot.LastOutcome;
-            _view.ShowReveal(outcome);
-            if (_flow.Phase == SelectionFlowPhase.Ended)
+            var continued = false;
+            Action continueReveal = () =>
             {
-                _view.ShowEnd(outcome);
-            }
+                if (continued) return;
+                continued = true;
+                _view.ShowReveal(outcome);
+                if (_flow.Phase == SelectionFlowPhase.Ended) _view.ShowEnd(outcome);
+            };
+            if (outcome.WinningSignalCardId.HasValue)
+                _winnerAnimationPlayer.Play(outcome.WinningSignalCardId.Value, continueReveal);
+            else
+                continueReveal();
         }
 
         public void SelectEvent(RoundEvent roundEvent)
