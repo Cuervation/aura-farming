@@ -23,17 +23,20 @@ namespace AuraFarming.Presentation
         [SerializeField] private int[] signalArtworkCardIds = Array.Empty<int>();
         [SerializeField] private WinnerAnimationDirector winnerAnimationDirector;
         private Action<int> _chooseEvent;
+        private Action<int> _chooseSignal;
+        private Action _confirmSelection;
         private GameObject _eventPanel;
+        private GameSnapshot _lastSnapshot;
 
         private static readonly Color[] SignalCardColors =
         {
-            new(0.15f, 0.12f, 0.075f, 1f),
-            new(0.18f, 0.14f, 0.08f, 1f),
-            new(0.12f, 0.11f, 0.075f, 1f),
+            new(0.09f, 0.015f, 0.07f, 1f),
+            new(0.12f, 0.02f, 0.09f, 1f),
+            new(0.07f, 0.02f, 0.08f, 1f),
         };
 
-        private static readonly Color EventColor = new(0.21f, 0.16f, 0.08f, 1f);
-        private static readonly Color EventHighlightColor = new(0.96f, 0.67f, 0.12f, 1f);
+        private static readonly Color EventColor = new(0.12f, 0.02f, 0.09f, 1f);
+        private static readonly Color EventHighlightColor = new(1f, 0.12f, 0.58f, 1f);
         private static readonly Color ShadowColor = new(0.015f, 0.012f, 0.008f, 0.92f);
 
         public void Configure(
@@ -52,12 +55,25 @@ namespace AuraFarming.Presentation
             endPanel = end;
             hudText = hud;
             statusText = status;
+            if (hudText != null) hudText.color = new Color(0.95f, 0.9f, 1f);
+            if (statusText != null) statusText.color = new Color(0.95f, 0.9f, 1f);
         }
 
         public void ConfigureSignalArtworkSlots(Image[] slots)
         {
             signalArtwork = slots ?? Array.Empty<Image>();
             signalArtworkCardIds = Array.Empty<int>();
+        }
+
+        public void ConfigureConfirmSelection(Action confirmSelection)
+        {
+            _confirmSelection = confirmSelection;
+        }
+
+        public void ConfigureSignalSelection(Action<int> chooseSignal)
+        {
+            _chooseSignal = chooseSignal;
+            EnsureTenthSignalCard();
         }
 
         public void ConfigureSignalArtworkSlots(Image[] slots, int[] cardIds)
@@ -134,6 +150,54 @@ namespace AuraFarming.Presentation
             }
         }
 
+        private void EnsureTenthSignalCard()
+        {
+            if (selectionPanel == null || _chooseSignal == null ||
+                selectionPanel.GetComponentsInChildren<Button>(true).Any(button => button.name == "Signal 10")) return;
+
+            var cardObject = new GameObject("Signal 10", typeof(RectTransform), typeof(Image), typeof(Button));
+            cardObject.transform.SetParent(selectionPanel.transform, false);
+            var rect = cardObject.GetComponent<RectTransform>();
+            rect.anchorMin = rect.anchorMax = new Vector2(.5f, 0f);
+            rect.pivot = new Vector2(.5f, 0f);
+            rect.anchoredPosition = new Vector2(0f, 18f);
+            rect.sizeDelta = new Vector2(170f, 170f);
+            var button = cardObject.GetComponent<Button>();
+            button.onClick.AddListener(() => _chooseSignal(10));
+            StyleButton(button, SignalCardColors[0], EventHighlightColor, 1.04f);
+
+            var artworkObject = new GameObject("Artwork", typeof(RectTransform), typeof(Image));
+            artworkObject.transform.SetParent(cardObject.transform, false);
+            var artworkRect = artworkObject.GetComponent<RectTransform>();
+            artworkRect.anchorMin = new Vector2(0f, .28f);
+            artworkRect.anchorMax = new Vector2(1f, 1f);
+            artworkRect.offsetMin = new Vector2(9f, 7f);
+            artworkRect.offsetMax = new Vector2(-9f, -7f);
+            var artwork = artworkObject.GetComponent<Image>();
+            artwork.preserveAspect = true;
+
+            var labelObject = new GameObject("Label", typeof(RectTransform), typeof(Text));
+            labelObject.transform.SetParent(cardObject.transform, false);
+            var label = labelObject.GetComponent<Text>();
+            label.text = "SIGNAL 10";
+            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            label.fontSize = 18;
+            label.fontStyle = FontStyle.Bold;
+            label.alignment = TextAnchor.MiddleLeft;
+            label.color = new Color(1f, .92f, .70f);
+            var labelRect = label.rectTransform;
+            labelRect.anchorMin = new Vector2(0f, 0f);
+            labelRect.anchorMax = new Vector2(1f, 0f);
+            labelRect.pivot = new Vector2(.5f, 0f);
+            labelRect.anchoredPosition = new Vector2(14f, 8f);
+            labelRect.sizeDelta = new Vector2(-28f, 30f);
+
+            signalArtwork = signalArtwork.Concat(new[] { artwork }).ToArray();
+            signalArtworkCardIds = signalArtworkCardIds.Length == 0
+                ? Enumerable.Range(1, signalArtwork.Length).ToArray()
+                : signalArtworkCardIds.Concat(new[] { 10 }).ToArray();
+        }
+
         private static void StyleButton(Button button, Color normal, Color highlighted, float pressedScale)
         {
             var image = button.GetComponent<Image>();
@@ -148,7 +212,7 @@ namespace AuraFarming.Presentation
             colors.fadeDuration = .12f;
             button.colors = colors;
 
-            AddOutline(button.gameObject, new Color(0.96f, 0.67f, 0.12f, .9f), new Vector2(1.5f, -1.5f));
+            AddOutline(button.gameObject, new Color(1f, 0.12f, 0.58f, .9f), new Vector2(1.5f, -1.5f));
             var shadow = button.GetComponent<Shadow>() ?? button.gameObject.AddComponent<Shadow>();
             shadow.effectColor = ShadowColor;
             shadow.effectDistance = new Vector2(3f, -4f);
@@ -221,51 +285,137 @@ namespace AuraFarming.Presentation
                 }
                 builder.Append("   ");
             }
+            _lastSnapshot = snapshot;
             hudText.text = builder.ToString();
         }
 
         public void ShowPrivateSelection(PlayerId player)
         {
             ShowOnly(selectionPanel);
+            EnsureConfirmSelectionButton();
+            ApplyPanelStyle(selectionPanel);
             statusText.text = $"Player {player.Value}: choose your Signal privately";
+        }
+
+        private void EnsureConfirmSelectionButton()
+        {
+            if (selectionPanel == null || _confirmSelection == null) return;
+            if (selectionPanel.GetComponentsInChildren<Button>(true)
+                .Any(button => button.name == "LOCK IN")) return;
+
+            var buttonObject = new GameObject("LOCK IN", typeof(RectTransform), typeof(Image), typeof(Button));
+            buttonObject.transform.SetParent(selectionPanel.transform, false);
+            var rect = buttonObject.GetComponent<RectTransform>();
+            rect.anchorMin = rect.anchorMax = new Vector2(1f, 0f);
+            rect.pivot = new Vector2(1f, 0f);
+            rect.anchoredPosition = new Vector2(-28f, 28f);
+            rect.sizeDelta = new Vector2(230f, 64f);
+            var image = buttonObject.GetComponent<Image>();
+            image.color = new Color(0.82f, 0.04f, 0.48f, 1f);
+            var button = buttonObject.GetComponent<Button>();
+            button.targetGraphic = image;
+            button.onClick.AddListener(() => _confirmSelection());
+            var labelObject = new GameObject("Label", typeof(RectTransform), typeof(Text));
+            labelObject.transform.SetParent(buttonObject.transform, false);
+            var label = labelObject.GetComponent<Text>();
+            label.text = "LOCK IN";
+            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            label.fontSize = 24;
+            label.alignment = TextAnchor.MiddleCenter;
+            label.color = Color.white;
+            var labelRect = label.rectTransform;
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = labelRect.offsetMax = Vector2.zero;
         }
 
         public void ShowPassScreen(PlayerId nextPlayer)
         {
             ShowOnly(passPanel);
+            ApplyPanelStyle(passPanel);
             statusText.text = $"Hide the screen, then pass to Player {nextPlayer.Value}";
+            if (passPanel != null)
+            {
+                foreach (var text in passPanel.GetComponentsInChildren<Text>(true)) text.color = Color.white;
+                foreach (var button in passPanel.GetComponentsInChildren<Button>(true))
+                {
+                    var image = button.GetComponent<Image>(); if (image != null) image.color = new Color(0.78f, 0.03f, 0.42f, 1f);
+                }
+            }
         }
 
         public void ShowReadyToReveal()
         {
             ShowOnly(revealPanel);
+            ApplyPanelStyle(revealPanel);
             statusText.text = "All Signals locked. Reveal when everyone is ready.";
         }
 
         public void ShowReveal(RoundOutcome outcome)
         {
             ShowOnly(resultPanel);
+            ApplyPanelStyle(resultPanel);
             winnerAnimationDirector?.PlayWinningAnimation(outcome);
             var pulse = outcome.PulseRecipients.Count == 0
                 ? "No Pulse"
                 : $"Pulse: {string.Join(", ", outcome.PulseRecipients.Select(id => $"P{id.Value}"))}";
             var jam = outcome.StaticRecipients.Count == 0
                 ? "No Static"
-                : $"Static: {string.Join(", ", outcome.StaticRecipients.Select(id => $"P{id.Value}"))}";
-            statusText.text = $"{pulse}  |  {jam}";
+                : $"Static: {string.Join(", ", outcome.StaticRecipients.Select(id => $"P{id.Value} (+{outcome.StaticReward})"))}";
+            if (outcome.PulseRecipients.Count > 0)
+            {
+                pulse = $"Pulse: {string.Join(", ", outcome.PulseRecipients.Select(id => $"P{id.Value} (+{outcome.PulseReward})"))}";
+            }
+            var selections = outcome.Selections.Count == 0
+                ? "No public selections"
+                : string.Join("  |  ", outcome.Selections.OrderBy(selection => selection.PlayerId.Value)
+                    .Select(selection => $"P{selection.PlayerId.Value}: SIGNAL {selection.CardId.Value:00} ({selection.SignalValue})"));
+            var eliminated = outcome.Players.Where(player => player.IsEliminated)
+                .Select(player => $"P{player.Id.Value}").ToArray();
+            var elimination = eliminated.Length == 0 ? string.Empty : $"\nEliminated: {string.Join(", ", eliminated)}";
+            // Winners are match-level winners (used by the end screen), not a
+            // winner for this individual round. Reveal only reports the
+            // scoring recipients so an ordinary round cannot claim the match
+            // has been won.
+            statusText.text = $"ROUND RESULT\n{selections}\n{pulse}  |  {jam}{elimination}";
         }
 
         public void ShowEnd(RoundOutcome outcome)
         {
             ShowOnly(endPanel);
-            statusText.text = outcome.IsDraw
-                ? "Signal collapse: draw"
-                : $"Winner: {string.Join(", ", outcome.Winners.Select(id => $"Player {id.Value}"))}";
+            ApplyPanelStyle(endPanel);
+            var winner = outcome.IsDraw ? "DRAW" : $"WINNER: {string.Join(", ", outcome.Winners.Select(id => $"PLAYER {id.Value}"))}";
+            var scores = _lastSnapshot == null ? string.Empty : string.Join("   ", _lastSnapshot.Players.Select(player => $"P{player.Id.Value} AURA: {player.Pulse - player.Static}"));
+            var summary = $"{winner}\n{scores}";
+            var subtitle = endPanel == null ? null : endPanel.GetComponentsInChildren<Text>(true).FirstOrDefault(text => text.text == "THE TABLE HAS SPOKEN");
+            if (subtitle != null) subtitle.text = summary;
+            else statusText.text = summary;
         }
 
         public void ShowError(CommandError error)
         {
             statusText.text = $"Cannot continue: {error}";
+        }
+
+        private static void ApplyPanelStyle(GameObject panel)
+        {
+            if (panel == null) return;
+            var image = panel.GetComponent<Image>();
+            if (image != null) image.color = new Color(0.02f, 0.015f, 0.035f, 0.96f);
+            foreach (var text in panel.GetComponentsInChildren<Text>(true))
+            {
+                text.color = new Color(0.95f, 0.93f, 1f);
+                text.fontStyle = FontStyle.Normal;
+            }
+            foreach (var button in panel.GetComponentsInChildren<Button>(true))
+            {
+                var buttonImage = button.GetComponent<Image>();
+                if (buttonImage != null) buttonImage.color = new Color(0.82f, 0.04f, 0.48f, 1f);
+                var colors = button.colors;
+                colors.highlightedColor = new Color(1f, 0.16f, 0.62f, 1f);
+                colors.pressedColor = new Color(0.55f, 0.02f, 0.28f, 1f);
+                button.colors = colors;
+            }
         }
 
         private void ShowOnly(GameObject visible)

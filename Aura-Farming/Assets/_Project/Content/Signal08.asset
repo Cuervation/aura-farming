@@ -16,4 +16,4 @@ MonoBehaviour:
   id: adjust-glasses
   displayName: Ajuste de Gafas
   value: 600
-  artwork: {fileID: 21300000, guid: acb5ebb0777b443fa6b8930048300cc7, type: 3}
+  artwork: {fileID: 21300000, guid: e4ca38f9a093aa94ab4e38f1cd3c7399, type: 3}

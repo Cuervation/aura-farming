@@ -45,16 +45,18 @@ namespace AuraFarming.Presentation
                 signalValues.Add(matchConfig.Signals[index].CardId, matchConfig.Signals[index].Value);
             }
 
-            matchView.ApplySignalArtwork(matchConfig.Signals);
-
             var session = new GameSession(players, signalValues);
             var winnerAnimationPlayer = GetComponent<WinnerAnimationDirector>();
             _presenter = new GamePresenter(new SelectionFlowController(session), matchView, winnerAnimationPlayer);
+            matchView.ConfigureSignalSelection(id => _presenter.ChooseSignal(new SignalCardId(id)));
+            matchView.ConfigureConfirmSelection(_presenter.ConfirmSignal);
+            matchView.ApplySignalArtwork(matchConfig.Signals);
             matchView.ConfigureEvents(matchConfig.Events, ChooseEvent);
             _presenter.Start();
         }
 
         public void ChooseSignal(int signalId) => _presenter?.ChooseSignal(new SignalCardId(signalId));
+        public void ConfirmSignal() => _presenter?.ConfirmSignal();
         public void ContinueAfterHandover() => _presenter?.ContinueAfterHandover();
         public void RevealRound() => _presenter?.RevealRound();
         public void ChooseEvent(int eventIndex)
@@ -67,8 +69,7 @@ namespace AuraFarming.Presentation
 
         public void StartNewGame()
         {
-            PlayerPrefs.DeleteKey(PlayerCountKey);
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("Game");
         }
 
         public void ReturnToMainMenu() => SceneManager.LoadScene("MainMenu");

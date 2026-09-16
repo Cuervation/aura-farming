@@ -16,4 +16,4 @@ MonoBehaviour:
   id: anime-pose
   displayName: Pose Anime
   value: 1000
-  artwork: {fileID: 21300000, guid: a8361a3240254059bc8140ed186fc976, type: 3}
+  artwork: {fileID: 21300000, guid: 17831d91599cea24ebfc8e627973f584, type: 3}

@@ -36,12 +36,15 @@ namespace AuraFarming.Presentation
 
         public void ChooseSignal(SignalCardId cardId)
         {
-            var result = _flow.SubmitCurrent(cardId);
+            var result = _flow.SelectCurrent(cardId);
             RenderResult(result);
-            if (!result.IsSuccess)
-            {
-                return;
-            }
+        }
+
+        public void ConfirmSignal()
+        {
+            var result = _flow.ConfirmCurrent();
+            RenderResult(result);
+            if (!result.IsSuccess) return;
 
             if (_flow.Phase == SelectionFlowPhase.AwaitingHandover)
             {

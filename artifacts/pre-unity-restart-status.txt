@@ -1,0 +1,86 @@
+ M .atl/skill-registry.md
+ M AGENTS.md
+ M Aura-Farming/Assets/_Project/Content/Signal01.asset
+ M Aura-Farming/Assets/_Project/Content/Signal02.asset
+ M Aura-Farming/Assets/_Project/Content/Signal03.asset
+ M Aura-Farming/Assets/_Project/Content/Signal04.asset
+ M Aura-Farming/Assets/_Project/Content/Signal05.asset
+ M Aura-Farming/Assets/_Project/Content/Signal06.asset
+ M Aura-Farming/Assets/_Project/Content/Signal07.asset
+ M Aura-Farming/Assets/_Project/Content/Signal08.asset
+ M Aura-Farming/Assets/_Project/Content/Signal09.asset
+ M Aura-Farming/Assets/_Project/Content/Signal10.asset
+ M Aura-Farming/Assets/_Project/Editor/SceneSetupBuilder.cs
+ M Aura-Farming/Assets/_Project/Scenes/MainMenu.unity
+ M Aura-Farming/Assets/_Project/Scripts/Domain/RoundOutcome.cs
+ M Aura-Farming/Assets/_Project/Scripts/Domain/RoundResolver.cs
+ M Aura-Farming/Assets/_Project/Scripts/Presentation/BootstrapLoader.cs
+ M Aura-Farming/Assets/_Project/Scripts/Presentation/GameCompositionRoot.cs
+ M Aura-Farming/Assets/_Project/Scripts/Presentation/GamePresenter.cs
+ M Aura-Farming/Assets/_Project/Scripts/Presentation/MainMenuView.cs
+ M Aura-Farming/Assets/_Project/Scripts/Presentation/MatchView.cs
+ M Aura-Farming/Assets/_Project/Scripts/Presentation/SelectionFlowController.cs
+ M Aura-Farming/Assets/_Project/Tests/EditMode/GamePresenterTests.cs
+ M Aura-Farming/Assets/_Project/Tests/EditMode/MatchViewArtworkTests.cs
+ M Aura-Farming/Assets/_Project/Tests/EditMode/RoundResolverTests.cs
+?? %SystemDrive%/
+?? .font-stage/
+?? Aura-Farming/Assets/Fonts.meta
+?? Aura-Farming/Assets/Fonts/
+?? Aura-Farming/Assets/_Project/Art/Cards/AD_Cringe.png
+?? Aura-Farming/Assets/_Project/Art/Cards/AD_Cringe.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/AD_Sin_Aura.png
+?? Aura-Farming/Assets/_Project/Art/Cards/AD_Sin_Aura.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/AD_Te_Caiste.png
+?? Aura-Farming/Assets/_Project/Art/Cards/AD_Te_Caiste.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/AD_Te_Reiste.png
+?? Aura-Farming/Assets/_Project/Art/Cards/AD_Te_Reiste.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/AR_Legandario.png
+?? Aura-Farming/Assets/_Project/Art/Cards/AR_Legandario.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/AR_Main_Character.png
+?? Aura-Farming/Assets/_Project/Art/Cards/AR_Main_Character.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/AR_Presencia.png
+?? Aura-Farming/Assets/_Project/Art/Cards/AR_Presencia.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/AR_Respeto.png
+?? Aura-Farming/Assets/_Project/Art/Cards/AR_Respeto.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Ajuste_Gafas.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Ajuste_Gafas.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Aura_Walk.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Aura_Walk.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Capitan.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Capitan.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Chasquido.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Chasquido.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Gesto_Silencio.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Gesto_Silencio.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Mewing.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Mewing.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Mirada_Sigma.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Mirada_Sigma.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Pose_Anime.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Pose_Anime.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/S_Aura_Suprema.png
+?? Aura-Farming/Assets/_Project/Art/Cards/S_Aura_Suprema.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/S_Batalla.png
+?? Aura-Farming/Assets/_Project/Art/Cards/S_Batalla.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/S_Modo_Humilde.png
+?? Aura-Farming/Assets/_Project/Art/Cards/S_Modo_Humilde.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Six_Seven.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Six_Seven.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/Stinky_DAnce.png
+?? Aura-Farming/Assets/_Project/Art/Cards/Stinky_DAnce.png.meta
+?? Aura-Farming/Assets/_Project/Art/Cards/lat6rolad3eambar.png
+?? Aura-Farming/Assets/_Project/Art/Cards/lat6rolad3eambar.png.meta
+?? Aura-Farming/Assets/_Project/Editor/AuraWindowBridgeServer.cs
+?? Aura-Farming/Assets/_Project/Editor/AuraWindowBridgeServer.cs.meta
+?? Aura-Farming/Assets/_Project/Editor/FontDiagnostic.cs
+?? Aura-Farming/Assets/_Project/Editor/FontDiagnostic.cs.meta
+?? Aura-Farming/Assets/_Project/Tests/SceneSetup/AuraWindowBridgeProtocolTests.cs
+?? Aura-Farming/Assets/_Project/Tests/SceneSetup/AuraWindowBridgeProtocolTests.cs.meta
+?? Aura-Farming/font-diagnostic.txt
+?? SceneSetupBuilder.cs
+?? artifacts/
+?? backups/
+?? captures/
+?? skills/
+?? tools/

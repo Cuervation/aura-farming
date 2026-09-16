@@ -1,0 +1,22 @@
+<Window x:Class="AuraWindowBridge.Panel.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Aura Control Panel" Width="540" Height="460">
+  <ScrollViewer><StackPanel Margin="16">
+    <TextBlock FontSize="20" FontWeight="Bold">Aura Control Panel</TextBlock>
+    <TextBlock x:Name="Connection" AutomationProperties.Name="Unity connection status" Margin="0,8,0,0">Connection: unknown</TextBlock>
+    <TextBlock x:Name="EditorState" AutomationProperties.Name="Unity editor state">Editor: unknown</TextBlock>
+    <TextBlock x:Name="Compilation" AutomationProperties.Name="Unity compilation status">Compilation: unknown</TextBlock>
+    <TextBlock x:Name="Scene" AutomationProperties.Name="Unity current scene">Scene: unknown</TextBlock>
+    <TextBlock x:Name="Console" AutomationProperties.Name="Unity console status">Console: unknown</TextBlock>
+    <TextBlock x:Name="Tests" AutomationProperties.Name="Unity test result">Tests: unknown</TextBlock>
+    <UniformGrid Columns="2" Margin="0,12,0,0">
+      <Button AutomationProperties.Name="Run EditMode Tests" Content="Run EditMode Tests" Tag="runEditModeTests" Click="Send" />
+      <Button AutomationProperties.Name="Run PlayMode Tests" Content="Run PlayMode Tests" Tag="runPlayModeTests" Click="Send" />
+      <Button AutomationProperties.Name="Enter Play Mode" Content="Play" Tag="enterPlayMode" Click="Send" />
+      <Button AutomationProperties.Name="Exit Play Mode" Content="Stop" Tag="exitPlayMode" Click="Send" />
+      <Button AutomationProperties.Name="Save Scene" Content="Save Scene" Tag="saveScene" Click="Send" />
+      <Button AutomationProperties.Name="Capture Game View" Content="Capture Game View" Tag="captureGameView" Click="Send" />
+      <Button AutomationProperties.Name="Clear Console" Content="Clear Console" Tag="clearConsole" Click="Send" />
+      <Button AutomationProperties.Name="Refresh Assets" Content="Refresh Assets" Tag="refreshAssets" Click="Send" />
+    </UniformGrid>
+    <TextBox x:Name="Result" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" Height="130" Margin="0,12,0,0" AutomationProperties.Name="Last bridge response" />
+  </StackPanel></ScrollViewer>
+</Window>

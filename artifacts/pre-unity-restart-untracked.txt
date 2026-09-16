@@ -1,0 +1,165 @@
+%SystemDrive%/ProgramData/Microsoft/Windows/Caches/cversions.2.db
+%SystemDrive%/ProgramData/Microsoft/Windows/Caches/{57832D8D-A76E-4C26-AB39-2C1D76659D12}.2.ver0x0000000000000001.db
+%SystemDrive%/ProgramData/Microsoft/Windows/Caches/{6AF0698E-D558-4F6E-9B3C-3716689AF493}.2.ver0x0000000000000001.db
+%SystemDrive%/ProgramData/Microsoft/Windows/Caches/{DDF571F2-BE98-426D-8288-1A9A39C3FDA2}.2.ver0x0000000000000001.db
+.font-stage/Oxanium-Bold.ttf
+.font-stage/SpaceGrotesk-Bold.ttf
+.font-stage/SpaceGrotesk-Medium.ttf
+Aura-Farming/Assets/Fonts.meta
+Aura-Farming/Assets/Fonts/Oxanium-Bold.ttf
+Aura-Farming/Assets/Fonts/Oxanium-Bold.ttf.meta
+Aura-Farming/Assets/Fonts/SpaceGrotesk-Bold.ttf
+Aura-Farming/Assets/Fonts/SpaceGrotesk-Bold.ttf.meta
+Aura-Farming/Assets/Fonts/SpaceGrotesk-Medium.ttf
+Aura-Farming/Assets/Fonts/SpaceGrotesk-Medium.ttf.meta
+Aura-Farming/Assets/_Project/Art/Cards/AD_Cringe.png
+Aura-Farming/Assets/_Project/Art/Cards/AD_Cringe.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/AD_Sin_Aura.png
+Aura-Farming/Assets/_Project/Art/Cards/AD_Sin_Aura.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/AD_Te_Caiste.png
+Aura-Farming/Assets/_Project/Art/Cards/AD_Te_Caiste.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/AD_Te_Reiste.png
+Aura-Farming/Assets/_Project/Art/Cards/AD_Te_Reiste.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/AR_Legandario.png
+Aura-Farming/Assets/_Project/Art/Cards/AR_Legandario.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/AR_Main_Character.png
+Aura-Farming/Assets/_Project/Art/Cards/AR_Main_Character.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/AR_Presencia.png
+Aura-Farming/Assets/_Project/Art/Cards/AR_Presencia.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/AR_Respeto.png
+Aura-Farming/Assets/_Project/Art/Cards/AR_Respeto.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Ajuste_Gafas.png
+Aura-Farming/Assets/_Project/Art/Cards/Ajuste_Gafas.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Aura_Walk.png
+Aura-Farming/Assets/_Project/Art/Cards/Aura_Walk.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Capitan.png
+Aura-Farming/Assets/_Project/Art/Cards/Capitan.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Chasquido.png
+Aura-Farming/Assets/_Project/Art/Cards/Chasquido.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Gesto_Silencio.png
+Aura-Farming/Assets/_Project/Art/Cards/Gesto_Silencio.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Mewing.png
+Aura-Farming/Assets/_Project/Art/Cards/Mewing.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Mirada_Sigma.png
+Aura-Farming/Assets/_Project/Art/Cards/Mirada_Sigma.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Pose_Anime.png
+Aura-Farming/Assets/_Project/Art/Cards/Pose_Anime.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/S_Aura_Suprema.png
+Aura-Farming/Assets/_Project/Art/Cards/S_Aura_Suprema.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/S_Batalla.png
+Aura-Farming/Assets/_Project/Art/Cards/S_Batalla.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/S_Modo_Humilde.png
+Aura-Farming/Assets/_Project/Art/Cards/S_Modo_Humilde.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Six_Seven.png
+Aura-Farming/Assets/_Project/Art/Cards/Six_Seven.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/Stinky_DAnce.png
+Aura-Farming/Assets/_Project/Art/Cards/Stinky_DAnce.png.meta
+Aura-Farming/Assets/_Project/Art/Cards/lat6rolad3eambar.png
+Aura-Farming/Assets/_Project/Art/Cards/lat6rolad3eambar.png.meta
+Aura-Farming/Assets/_Project/Editor/AuraWindowBridgeServer.cs
+Aura-Farming/Assets/_Project/Editor/AuraWindowBridgeServer.cs.meta
+Aura-Farming/Assets/_Project/Editor/FontDiagnostic.cs
+Aura-Farming/Assets/_Project/Editor/FontDiagnostic.cs.meta
+Aura-Farming/Assets/_Project/Tests/SceneSetup/AuraWindowBridgeProtocolTests.cs
+Aura-Farming/Assets/_Project/Tests/SceneSetup/AuraWindowBridgeProtocolTests.cs.meta
+Aura-Farming/font-diagnostic.txt
+SceneSetupBuilder.cs
+artifacts/pre-unity-restart-status.txt
+artifacts/pre-unity-restart-untracked.txt
+artifacts/pre-unity-restart.diff
+artifacts/unity-compile.log
+backups/uac-policies-before-enablelua.reg
+captures/01_bootstrap.jpg
+captures/01_bootstrap_after.jpg
+captures/01_locked_in_after.jpg
+captures/02_main_menu.jpg
+captures/02_main_menu_after.jpg
+captures/02_pass_device_after.jpg
+captures/03_how_it_works.jpg
+captures/03_how_it_works_after.jpg
+captures/03_player_setup.jpg
+captures/03_reveal_after.jpg
+captures/04_game_start.jpg
+captures/04_player_setup_after.jpg
+captures/04_resolution_after.jpg
+captures/05_card_selection.jpg
+captures/05_keep_signal_private.jpg
+captures/05_keep_signal_private_after.jpg
+captures/05_round_complete_after.jpg
+captures/06_card_selected.jpg
+captures/06_next_round_after.jpg
+captures/07_lock_in.jpg
+captures/08_round_resolution.jpg
+captures/09_mid_match.jpg
+captures/10_match_complete.jpg
+captures/11_final_summary.jpg
+captures/12_back_to_menu.jpg
+captures/design-v2/01_main_menu.jpg
+captures/design-v3/03_main_menu_fonts_final.jpg
+captures/design-v3/03_main_menu_static/fonts_legacy.jpg
+captures/design-v3/03_main_menu_static_fonts.jpg
+captures/design-v3/mainmenu-play.jpg
+captures/design-v3/mainmenu-ready.jpg
+captures/design-v3/unity-current.jpg
+captures/redesign-part1/01_bootstrap_after.jpg
+captures/redesign-part1/02_main_menu_after.jpg
+captures/redesign-part1/03_how_it_works_after.jpg
+captures/redesign-part1/04_player_setup_after.jpg
+captures/redesign-part1/05_keep_signal_private_after.jpg
+captures/redesign-part3/01_locked_in_after.jpg
+captures/redesign-part3/02_pass_device_after.jpg
+captures/redesign-part3/03_reveal_after.jpg
+captures/redesign-part3/04_resolution_after.jpg
+captures/redesign-part3/05_round_complete_after.jpg
+captures/redesign-part3/06_next_round_after.jpg
+captures/ui-sprint-v5/01_main_menu.jpg
+captures/ui-sprint-v5/02_player_setup.jpg
+captures/ui-sprint-v5/03_how_it_works.jpg
+captures/ui-sprint-v5/04_keep_private.jpg
+captures/ui-sprint-v5/05_game_idle.jpg
+captures/ui-sprint-v5/06_card_selected.jpg
+captures/ui-sprint-v5/07_locked.jpg
+captures/ui-sprint-v5/08_player_transition.jpg
+captures/ui-sprint-v5/09_reveal.jpg
+captures/ui-sprint-v5/10_round_result.jpg
+captures/ui-sprint-v5/11_next_round.jpg
+captures/ui-sprint-v5/12_match_complete.jpg
+captures/ui-sprint-v5/13_final_standings.jpg
+skills/aura-farming-harnesses/SKILL.md
+tools/AuraProcessRunner/Program.cs
+tools/AuraProcessRunner/bin/Debug/net10.0/AuraProcessRunner.deps.json
+tools/AuraProcessRunner/bin/Debug/net10.0/AuraProcessRunner.dll
+tools/AuraProcessRunner/bin/Debug/net10.0/AuraProcessRunner.exe
+tools/AuraProcessRunner/bin/Debug/net10.0/AuraProcessRunner.pdb
+tools/AuraProcessRunner/bin/Debug/net10.0/AuraProcessRunner.runtimeconfig.json
+tools/AuraWindowBridge.Panel/App.xaml
+tools/AuraWindowBridge.Panel/App.xaml.cs
+tools/AuraWindowBridge.Panel/MainWindow.xaml
+tools/AuraWindowBridge/Program.cs
+tools/AuraWindowBridge/README.md
+tools/AuraWindowBridge/bin/Debug/net10.0/AuraWindowBridge.deps.json
+tools/AuraWindowBridge/bin/Debug/net10.0/AuraWindowBridge.dll
+tools/AuraWindowBridge/bin/Debug/net10.0/AuraWindowBridge.exe
+tools/AuraWindowBridge/bin/Debug/net10.0/AuraWindowBridge.pdb
+tools/AuraWindowBridge/bin/Debug/net10.0/AuraWindowBridge.runtimeconfig.json
+tools/Maximize-UnityWindow.ps1
+tools/NuGet.Config
+tools/dotnet-home /.dotnet/10.0.400.aspNetCertificateSentinel
+tools/dotnet-home /.dotnet/10.0.400.dotnetFirstUseSentinel
+tools/dotnet-home /.dotnet/10.0.400.toolpath.sentinel
+tools/dotnet-home /.dotnet/10.0.400_IsDockerContainer.dotnetUserLevelCache
+tools/dotnet-home /.dotnet/10.0.400_MachineId.dotnetUserLevelCache
+tools/dotnet-home /.dotnet/MachineId.v1.dotnetUserLevelCache
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133846_ea1ab8f7f7d64379a73520d8ae018776.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133846_f18285d2d76046eea244c938cd9f307b.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133847_5eb75800e239423b836236878195699d.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133847_6a4e6a0d9dd1445dae876dbb80cac2fd.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133847_d0d665c390b24c53b2204a0ef88b947d.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133849_35c131f000444592a1c1e9dea90fe51f.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133858_15eae70e6ff8436fabaf057737a62415.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133858_1c65884d19e84e6ca47a9c7c39192a99.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/20260916133858_5ec28ceae36e4fa4a9de593399ee28f9.trn
+tools/dotnet-home /.dotnet/TelemetryStorageService/6817e097555d4c3793842368ac0a942f
+tools/dotnet-home /.dotnet/TelemetryStorageService/74af1e2f645e4e05b34afc9f9deb5aa3
+tools/dotnet-home/AppData/Roaming /NuGet/NuGet.Config
+tools/run-safe.ps1

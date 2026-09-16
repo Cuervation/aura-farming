@@ -9,6 +9,7 @@ namespace AuraFarming.Domain
         private readonly IReadOnlyList<PlayerId> _pulseRecipients;
         private readonly IReadOnlyList<PlayerId> _staticRecipients;
         private readonly IReadOnlyList<PlayerId> _winners;
+        private readonly IReadOnlyList<Selection> _selections;
         private readonly SignalCardId? _winningSignalCardId;
 
         public RoundOutcome(
@@ -18,24 +19,33 @@ namespace AuraFarming.Domain
             IReadOnlyList<PlayerId> winners,
             bool isDraw,
             RoundEvent appliedEvent = null,
-            SignalCardId? winningSignalCardId = null)
+            SignalCardId? winningSignalCardId = null,
+            IReadOnlyList<Selection> selections = null,
+            int pulseReward = 1,
+            int staticReward = 1)
         {
             _players = Copy(players);
             _pulseRecipients = Copy(pulseRecipients);
             _staticRecipients = Copy(staticRecipients);
             _winners = Copy(winners);
+            _selections = Copy(selections ?? Array.Empty<Selection>());
             _winningSignalCardId = winningSignalCardId;
             IsDraw = isDraw;
             AppliedEvent = appliedEvent;
+            PulseReward = pulseReward;
+            StaticReward = staticReward;
         }
 
         public IReadOnlyList<PlayerState> Players => _players;
         public IReadOnlyList<PlayerId> PulseRecipients => _pulseRecipients;
         public IReadOnlyList<PlayerId> StaticRecipients => _staticRecipients;
         public IReadOnlyList<PlayerId> Winners => _winners;
+        public IReadOnlyList<Selection> Selections => _selections;
         public SignalCardId? WinningSignalCardId => _winningSignalCardId;
         public bool IsDraw { get; }
         public RoundEvent AppliedEvent { get; }
+        public int PulseReward { get; }
+        public int StaticReward { get; }
         public bool IsMatchEnded => IsDraw || _winners.Count > 0;
 
         public PlayerState Player(PlayerId id)

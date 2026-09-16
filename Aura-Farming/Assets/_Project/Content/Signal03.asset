@@ -16,4 +16,4 @@ MonoBehaviour:
   id: aura-walk
   displayName: Aura Walk
   value: 1800
-  artwork: {fileID: 21300000, guid: b94bd5ad392e4f11913b3110cdb48594, type: 3}
+  artwork: {fileID: 21300000, guid: c662995122bf5e5468a2def143b8ad94, type: 3}

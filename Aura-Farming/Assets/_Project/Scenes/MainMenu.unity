@@ -381,6 +381,9 @@ MonoBehaviour:
   helpPanel: {fileID: 1594888874}
   setupPanel: {fileID: 1602836670}
   playerCountDropdown: {fileID: 1273444510}
+  brandingFont: {fileID: 12800000, guid: 2f534de1ea807694f9911d30dbddf4a1, type: 2}
+  uiFont: {fileID: 12800000, guid: 2e653c1b4520e4c45be64887e34689be, type: 2}
+  uiMediumFont: {fileID: 12800000, guid: 0962a524c1fed1c4281f64a4b653e913, type: 2}
 --- !u!114 &344157985
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,4 +16,4 @@ MonoBehaviour:
   id: mewing
   displayName: Mewing
   value: 1500
-  artwork: {fileID: 21300000, guid: 8275373c55a04dccb2142c09a1ac61ab, type: 3}
+  artwork: {fileID: 21300000, guid: 6e89d99c69fa7d2408dfb200bd554a31, type: 3}

@@ -230,6 +230,24 @@ namespace AuraFarming.Tests.EditMode
             Assert.That(outcome.WinningSignalCardId.HasValue, Is.False);
         }
 
+        [Test]
+        public void Resolve_PublishesSelectionsAndAppliedRewardAmountsForReveal()
+        {
+            var players = CreatePlayers(2);
+            var selections = new[]
+            {
+                new Selection(new PlayerId(1), new SignalCardId(10), 300),
+                new Selection(new PlayerId(2), new SignalCardId(1), 2500)
+            };
+
+            var outcome = new RoundResolver().Resolve(players, selections,
+                new RoundEvent("surge", "Pulse Surge", RoundEffect.PulseSurge));
+
+            Assert.That(outcome.Selections, Is.EqualTo(selections));
+            Assert.That(outcome.PulseReward, Is.EqualTo(2));
+            Assert.That(outcome.StaticReward, Is.EqualTo(1));
+        }
+
         private static IReadOnlyList<PlayerState> CreatePlayers(int count)
         {
             return Enumerable.Range(1, count).Select(value => new PlayerState(new PlayerId(value))).ToArray();
@@ -241,4 +259,5 @@ namespace AuraFarming.Tests.EditMode
         }
     }
 }
+
 

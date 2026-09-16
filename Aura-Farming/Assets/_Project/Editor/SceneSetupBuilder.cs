@@ -190,6 +190,8 @@ namespace AuraFarming.Editor
                 UnityEventTools.AddIntPersistentListener(button.onClick, root.ChooseSignal, i);
                 signalArtwork[i - 1] = Artwork(button);
             }
+            Label(selection.transform, "REVIEW YOUR SIGNAL, THEN LOCK IT IN", 18, -235, 170);
+            Button(selection.transform, "LOCK IN", 400, -310, root.ConfirmSignal, 250);
             var pass = Panel(canvas, "Pass", false);
             Label(pass.transform, "KEEP YOUR SIGNAL PRIVATE", 34, 65);
             Label(pass.transform, "PASS THE DEVICE ONLY WHEN YOU ARE READY", 17, 18);

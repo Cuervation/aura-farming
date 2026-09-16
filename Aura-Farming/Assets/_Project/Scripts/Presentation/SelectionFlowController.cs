@@ -33,22 +33,46 @@ namespace AuraFarming.Presentation
         public PlayerId CurrentPlayer { get; private set; }
         public PlayerId NextPlayer => _nextPlayer;
         public RoundEvent SelectedEvent => _roundEvent;
+        public SignalCardId? PendingSelection { get; private set; }
         public GameSnapshot Snapshot => _session.Snapshot;
 
         public CommandResult SubmitCurrent(SignalCardId cardId)
+        {
+            var selected = SelectCurrent(cardId);
+            return selected.IsSuccess ? ConfirmCurrent() : selected;
+        }
+
+        public CommandResult SelectCurrent(SignalCardId cardId)
         {
             if (Phase != SelectionFlowPhase.AwaitingPrivateSelection)
             {
                 return CommandResult.Failure(CommandError.InvalidPhase);
             }
 
-            var result = _session.SubmitSelection(CurrentPlayer, cardId);
+            PendingSelection = cardId;
+            return CommandResult.Success();
+        }
+
+        public CommandResult ConfirmCurrent()
+        {
+            if (Phase != SelectionFlowPhase.AwaitingPrivateSelection)
+            {
+                return CommandResult.Failure(CommandError.InvalidPhase);
+            }
+
+            if (!PendingSelection.HasValue)
+            {
+                return CommandResult.Failure(CommandError.InvalidPhase);
+            }
+
+            var result = _session.SubmitSelection(CurrentPlayer, PendingSelection.Value);
             if (!result.IsSuccess)
             {
                 return result;
             }
 
             _submittedPlayers.Add(CurrentPlayer);
+            PendingSelection = null;
             var next = _session.Players.FirstOrDefault(player => !player.IsEliminated && !_submittedPlayers.Contains(player.Id));
             if (next == null)
             {
@@ -116,6 +140,7 @@ namespace AuraFarming.Presentation
             {
                 _submittedPlayers.Clear();
                 _roundEvent = null;
+                PendingSelection = null;
                 CurrentPlayer = FirstActivePlayer();
                 Phase = SelectionFlowPhase.AwaitingPrivateSelection;
             }

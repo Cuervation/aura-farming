@@ -80,7 +80,17 @@ namespace AuraFarming.Domain
                     .ToArray();
             }
 
-            return new RoundOutcome(updatedPlayers, pulseRecipients, staticRecipients, winners, isDraw, roundEvent, winningSignalCardId);
+            return new RoundOutcome(
+                updatedPlayers,
+                pulseRecipients,
+                staticRecipients,
+                winners,
+                isDraw,
+                roundEvent,
+                winningSignalCardId,
+                selections,
+                pulseReward,
+                staticReward);
         }
 
         private static IReadOnlyList<PlayerState> Validate(

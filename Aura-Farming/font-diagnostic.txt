@@ -1,0 +1,3 @@
+Oxanium-Bold.ttf|True|UnityEngine.Font|UnityEditor.TrueTypeFontImporter
+SpaceGrotesk-Bold.ttf|True|UnityEngine.Font|UnityEditor.TrueTypeFontImporter
+SpaceGrotesk-Medium.ttf|True|UnityEngine.Font|UnityEditor.TrueTypeFontImporter

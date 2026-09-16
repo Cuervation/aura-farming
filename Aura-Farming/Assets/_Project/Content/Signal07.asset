@@ -16,4 +16,4 @@ MonoBehaviour:
   id: sigma-look
   displayName: Mirada Sigma
   value: 800
-  artwork: {fileID: 21300000, guid: 682ffaaea4b3448c8e73f58b82954f94, type: 3}
+  artwork: {fileID: 21300000, guid: d6c0c59220665fa4ea3f8cb97afd5ef7, type: 3}

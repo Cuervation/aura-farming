@@ -16,4 +16,4 @@ MonoBehaviour:
   id: captain
   displayName: Modo Capitán
   value: 2500
-  artwork: {fileID: 21300000, guid: 9d6306ffa22080e45b1a8b9acf2f243b, type: 3}
+  artwork: {fileID: 21300000, guid: efc5ea5f1812f6841a4182db42eed3da, type: 3}

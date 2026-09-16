@@ -16,7 +16,7 @@ namespace AuraFarming.Tests.EditMode
             var presenter = new GamePresenter(CreateFlow(), view);
 
             presenter.Start();
-            presenter.ChooseSignal(new SignalCardId(1));
+            presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal();
 
             Assert.That(view.LastPrivatePlayer, Is.EqualTo(new PlayerId(1)));
             Assert.That(view.LastPassPlayer, Is.EqualTo(new PlayerId(2)));
@@ -29,9 +29,9 @@ namespace AuraFarming.Tests.EditMode
             var view = new RecordingMatchView();
             var presenter = new GamePresenter(CreateFlow(), view);
             presenter.Start();
-            presenter.ChooseSignal(new SignalCardId(1));
+            presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal();
             presenter.ContinueAfterHandover();
-            presenter.ChooseSignal(new SignalCardId(2));
+            presenter.ChooseSignal(new SignalCardId(2)); presenter.ConfirmSignal();
 
             presenter.RevealRound();
 
@@ -45,7 +45,7 @@ namespace AuraFarming.Tests.EditMode
             var view = new RecordingMatchView();
             var player = new FakeWinnerAnimationPlayer();
             var presenter = new GamePresenter(CreateFlow(), view, player);
-            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.RevealRound();
+            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.ConfirmSignal(); presenter.RevealRound();
             Assert.That(player.PlayCount, Is.EqualTo(1));
             Assert.That(player.CardId, Is.EqualTo(new SignalCardId(8)));
             Assert.That(view.RevealCount, Is.EqualTo(0));
@@ -59,7 +59,7 @@ namespace AuraFarming.Tests.EditMode
             var view = new RecordingMatchView();
             var player = new FakeWinnerAnimationPlayer();
             var presenter = new GamePresenter(CreateFlow(), view, player);
-            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(1)); presenter.RevealRound();
+            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.RevealRound();
             Assert.That(player.PlayCount, Is.EqualTo(0));
             Assert.That(view.RevealCount, Is.EqualTo(1));
         }
@@ -70,7 +70,7 @@ namespace AuraFarming.Tests.EditMode
             var view = new RecordingMatchView();
             var player = new FakeWinnerAnimationPlayer();
             var presenter = new GamePresenter(CreateFlow(), view, player);
-            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.RevealRound();
+            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.ConfirmSignal(); presenter.RevealRound();
             player.Complete(); player.Complete();
             Assert.That(view.RevealCount, Is.EqualTo(1));
         }
@@ -80,7 +80,7 @@ namespace AuraFarming.Tests.EditMode
         {
             var view = new RecordingMatchView();
             var presenter = new GamePresenter(CreateFlow(), view);
-            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.RevealRound();
+            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.ConfirmSignal(); presenter.RevealRound();
             Assert.That(view.RevealCount, Is.EqualTo(1));
         }
 

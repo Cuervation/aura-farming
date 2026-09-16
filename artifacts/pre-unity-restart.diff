@@ -1,0 +1,972 @@
+diff --git a/.atl/skill-registry.md b/.atl/skill-registry.md
+index 77434e1..0d9891e 100644
+--- a/.atl/skill-registry.md
++++ b/.atl/skill-registry.md
+@@ -1,20 +1,36 @@
+ # Skill Registry
+ 
+-## Project
++**Delegator use only.** Resolve the following compact rules before launching any Aura Farming work.
+ 
+-- Unity 6 (6000.5.10f1), C#, URP, Input System, Unity Test Framework.
+-- Architecture: Domain -> Application -> Infrastructure/Presentation via assembly definitions.
++## User Skills
++
++| Trigger | Skill | Path |
++| --- | --- | --- |
++| Aura Farming, Unity, UI, Play Mode, Inspector, tests, commit, push | aura-farming-harnesses | C:/Users/celestinoh/Documents/ChatGPT/Aura-Game/skills/aura-farming-harnesses/SKILL.md |
+ 
+ ## Compact Rules
+ 
+-- Keep domain and application code free of UnityEngine dependencies.
+-- Add or update EditMode tests before implementation changes (Strict TDD).
+-- Keep scene wiring in Presentation/Editor; validate ScriptableObject content before play.
+-- Do not modify generated Unity folders: Library/, Temp/, Logs/, obj/.
++### aura-farming-harnesses
++- Use ASTRA low for multi-action Unity, screenshots, visual UI work, and UI design.
++- Use TERRA low for mechanically specified, routine C# changes.
++- Start cheap; escalate once only on evidence, keeping requested and effective runtime metadata separate.
++- Route inspection/config/reporting to LUNA low; simple C# to TERRA low; complex/debugging to TERRA medium; Unity to ASTRA low.
++- Record task_id, task_type, assigned/effective model and effort, reason, escalation count/reason and result.
++- Use targeted tests before one final suite; escalate by domain and use minimal handoffs.
++- Use LUNA low for single deterministic checks and Git closeout; minimal is not supported by current subagent metadata.
++- Start architecture/debugging with ASTRA low; escalate once to medium only after evidence.
++- Verify actual model/effort from runtime metadata; never claim routing changed the model automatically. Disclose unavailable dispatch or fallback.
++- Keep tiny checks inline; delegate only authorized coherent work with compact context, not full history.
++- Load relevant files and memories once; expand only when evidence requires it.
++- Use @oai/sky for Unity. Sky-induced resize/state changes are allowed; do not require maximized state, activate_window, or fixed resolution. Prefer fresh accessibility indices; coordinates only with valid geometry. Separate UNITY_MECHANICAL from UNITY_VISUAL. TOOL_FAILURE is not MODEL_FAILURE and does not justify escalation. Stop Play Mode and verify stable Edit Mode before final response.
++- Never build the player; run only necessary targeted tests.
++- Follow strict TDD for code; validate documentation structurally. Reuse tests only if relevant tested state and environment are unchanged.
++- After two failed attempts on the same issue, escalate once with evidence or report blocker; no blind retry loops.
++- Commit/push only when requested; preserve unrelated work, use conventional commits without AI attribution.
++- Record requested/effective model, checks, retries and measured usage in existing handoff; unavailable values stay unavailable, no invented savings.
+ 
+-## Relevant Skills
++## Project Conventions
+ 
+-| Trigger | Standard |
+-| --- | --- |
+-| Unity/C# code or tests | Strict TDD; preserve assembly dependency direction. |
+-| Visual assets | Generate original art; do not reproduce third-party branding or illustrations. |
++| File | Path | Notes |
++| --- | --- | --- |
++| AGENTS.md | C:/Users/celestinoh/Documents/ChatGPT/Aura-Game/AGENTS.md | Unity safety and mandatory harness routing |
+diff --git a/AGENTS.md b/AGENTS.md
+index aa0e212..9d8301e 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -2,9 +2,18 @@
+ 
+ ## Unity window
+ 
+-- Unity must remain maximized throughout all work.
+-- Before every Unity UI action, verify the main window is maximized and activate it without restoring, minimizing, resizing, or changing its size.
+-- Never minimize, resize, restore, or otherwise change the size of the main Unity window.
+-- When using the Unity Test Runner, adjust only its internal panel or floating tool window; preserve Unity's maximized state and visible tabs.
+-- Whenever Unity must be opened, inspected, or controlled, connect through `@oai/sky` first.
+-- Before any Unity UI action, verify that the main Unity window is maximized; never resize or restore it.
++- Whenever Unity must be opened, inspected, or controlled, connect through @oai/sky first.
++- Sky may automatically change Unity window size, resolution, focus, or maximized state; these tool-induced changes are allowed and valid.
++- After connecting through Sky, do NOT maximize, restore, minimize, move, resize, or call activate_window as an obligatory recovery step.
++- Work with the viewport and window state exposed by Sky; do not require a specific resolution or maximized state.
++- Prefer a fresh accessibility tree and fresh element_index for every menu action. Never reuse indices after UI changes.
++- Use coordinates only when Sky confirms valid input geometry. If geometry is unavailable, use accessibility or deterministic Editor tooling.
++- A Sky-induced window-state change alone must never stop the task.
++
++## Mandatory Harness Routing
++
++- Always use skills/aura-farming-harnesses/SKILL.md for any Aura Farming task before acting.
++- Follow the skill's routing table as the single source of truth. Validate supported model/effort and distinguish requested routing from verified effective execution; the Markdown rules do not switch models automatically.
++- Apply its Unity closure rule before every final response.
++
++- For Sky window recovery, run tools/Maximize-UnityWindow.ps1 before connecting Sky and after Sky if needed; use the Windows guardian, not Sky activation or coordinates, and refresh accessibility afterward.
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal01.asset b/Aura-Farming/Assets/_Project/Content/Signal01.asset
+index ede8ed2..be7f735 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal01.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal01.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: captain
+   displayName: Modo Capitán
+   value: 2500
+-  artwork: {fileID: 21300000, guid: 9d6306ffa22080e45b1a8b9acf2f243b, type: 3}
++  artwork: {fileID: 21300000, guid: efc5ea5f1812f6841a4182db42eed3da, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal02.asset b/Aura-Farming/Assets/_Project/Content/Signal02.asset
+index 737c5b4..bd62b1a 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal02.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal02.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: six-seven
+   displayName: Six-Seven
+   value: 2000
+-  artwork: {fileID: 21300000, guid: 3f7f00e18f344179855d4883031aa7bc, type: 3}
++  artwork: {fileID: 21300000, guid: e285651dcacc7c54cbfa34839c8f2cb9, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal03.asset b/Aura-Farming/Assets/_Project/Content/Signal03.asset
+index b88c8fe..9342d31 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal03.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal03.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: aura-walk
+   displayName: Aura Walk
+   value: 1800
+-  artwork: {fileID: 21300000, guid: b94bd5ad392e4f11913b3110cdb48594, type: 3}
++  artwork: {fileID: 21300000, guid: c662995122bf5e5468a2def143b8ad94, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal04.asset b/Aura-Farming/Assets/_Project/Content/Signal04.asset
+index e5e7655..18a26e7 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal04.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal04.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: mewing
+   displayName: Mewing
+   value: 1500
+-  artwork: {fileID: 21300000, guid: 8275373c55a04dccb2142c09a1ac61ab, type: 3}
++  artwork: {fileID: 21300000, guid: 6e89d99c69fa7d2408dfb200bd554a31, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal05.asset b/Aura-Farming/Assets/_Project/Content/Signal05.asset
+index 13e6400..b578ff1 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal05.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal05.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: stinky-dance
+   displayName: Stinky Dance
+   value: 1200
+-  artwork: {fileID: 21300000, guid: 888ee8976b724d09980737a7e11d5a05, type: 3}
++  artwork: {fileID: 21300000, guid: 8de0f471cdd724e4f8629c9e4bd6e53e, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal06.asset b/Aura-Farming/Assets/_Project/Content/Signal06.asset
+index a3209bc..68611cc 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal06.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal06.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: anime-pose
+   displayName: Pose Anime
+   value: 1000
+-  artwork: {fileID: 21300000, guid: a8361a3240254059bc8140ed186fc976, type: 3}
++  artwork: {fileID: 21300000, guid: 17831d91599cea24ebfc8e627973f584, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal07.asset b/Aura-Farming/Assets/_Project/Content/Signal07.asset
+index 134fa8b..e0981c5 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal07.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal07.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: sigma-look
+   displayName: Mirada Sigma
+   value: 800
+-  artwork: {fileID: 21300000, guid: 682ffaaea4b3448c8e73f58b82954f94, type: 3}
++  artwork: {fileID: 21300000, guid: d6c0c59220665fa4ea3f8cb97afd5ef7, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal08.asset b/Aura-Farming/Assets/_Project/Content/Signal08.asset
+index 79d99d5..3491b22 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal08.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal08.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: adjust-glasses
+   displayName: Ajuste de Gafas
+   value: 600
+-  artwork: {fileID: 21300000, guid: acb5ebb0777b443fa6b8930048300cc7, type: 3}
++  artwork: {fileID: 21300000, guid: e4ca38f9a093aa94ab4e38f1cd3c7399, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal09.asset b/Aura-Farming/Assets/_Project/Content/Signal09.asset
+index ee8f82b..1348bbc 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal09.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal09.asset
+@@ -16,4 +16,4 @@ MonoBehaviour:
+   id: silence
+   displayName: Gesto de Silencio
+   value: 400
+-  artwork: {fileID: 21300000, guid: b5cfd357be7b416098ee8de6297d64d4, type: 3}
++  artwork: {fileID: 21300000, guid: ec089d6e6e613644c828f58b84335d6b, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Content/Signal10.asset b/Aura-Farming/Assets/_Project/Content/Signal10.asset
+index 0131b4f..d21b5a7 100644
+--- a/Aura-Farming/Assets/_Project/Content/Signal10.asset
++++ b/Aura-Farming/Assets/_Project/Content/Signal10.asset
+@@ -10,7 +10,7 @@ MonoBehaviour:
+   m_Name: Signal10
+   m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.SignalDefinition
+   cardId: 10
+-  id: signal-10
+-  displayName: Mewing
+-  value: 200
+-  artwork: {fileID: 0}
++  id: chasquido
++  displayName: Chasquido
++  value: 300
++  artwork: {fileID: 21300000, guid: b2764d0259b76934190d37ab73befb20, type: 3}
+diff --git a/Aura-Farming/Assets/_Project/Editor/SceneSetupBuilder.cs b/Aura-Farming/Assets/_Project/Editor/SceneSetupBuilder.cs
+index 6a08dac..088c5eb 100644
+--- a/Aura-Farming/Assets/_Project/Editor/SceneSetupBuilder.cs
++++ b/Aura-Farming/Assets/_Project/Editor/SceneSetupBuilder.cs
+@@ -190,6 +190,8 @@ namespace AuraFarming.Editor
+                 UnityEventTools.AddIntPersistentListener(button.onClick, root.ChooseSignal, i);
+                 signalArtwork[i - 1] = Artwork(button);
+             }
++            Label(selection.transform, "REVIEW YOUR SIGNAL, THEN LOCK IT IN", 18, -235, 170);
++            Button(selection.transform, "LOCK IN", 400, -310, root.ConfirmSignal, 250);
+             var pass = Panel(canvas, "Pass", false);
+             Label(pass.transform, "KEEP YOUR SIGNAL PRIVATE", 34, 65);
+             Label(pass.transform, "PASS THE DEVICE ONLY WHEN YOU ARE READY", 17, 18);
+diff --git a/Aura-Farming/Assets/_Project/Scenes/MainMenu.unity b/Aura-Farming/Assets/_Project/Scenes/MainMenu.unity
+index 1647256..709039c 100644
+--- a/Aura-Farming/Assets/_Project/Scenes/MainMenu.unity
++++ b/Aura-Farming/Assets/_Project/Scenes/MainMenu.unity
+@@ -381,6 +381,9 @@ MonoBehaviour:
+   helpPanel: {fileID: 1594888874}
+   setupPanel: {fileID: 1602836670}
+   playerCountDropdown: {fileID: 1273444510}
++  brandingFont: {fileID: 12800000, guid: 2f534de1ea807694f9911d30dbddf4a1, type: 2}
++  uiFont: {fileID: 12800000, guid: 2e653c1b4520e4c45be64887e34689be, type: 2}
++  uiMediumFont: {fileID: 12800000, guid: 0962a524c1fed1c4281f64a4b653e913, type: 2}
+ --- !u!114 &344157985
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+diff --git a/Aura-Farming/Assets/_Project/Scripts/Domain/RoundOutcome.cs b/Aura-Farming/Assets/_Project/Scripts/Domain/RoundOutcome.cs
+index 4b475db..10f3877 100644
+--- a/Aura-Farming/Assets/_Project/Scripts/Domain/RoundOutcome.cs
++++ b/Aura-Farming/Assets/_Project/Scripts/Domain/RoundOutcome.cs
+@@ -9,6 +9,7 @@ namespace AuraFarming.Domain
+         private readonly IReadOnlyList<PlayerId> _pulseRecipients;
+         private readonly IReadOnlyList<PlayerId> _staticRecipients;
+         private readonly IReadOnlyList<PlayerId> _winners;
++        private readonly IReadOnlyList<Selection> _selections;
+         private readonly SignalCardId? _winningSignalCardId;
+ 
+         public RoundOutcome(
+@@ -18,24 +19,33 @@ namespace AuraFarming.Domain
+             IReadOnlyList<PlayerId> winners,
+             bool isDraw,
+             RoundEvent appliedEvent = null,
+-            SignalCardId? winningSignalCardId = null)
++            SignalCardId? winningSignalCardId = null,
++            IReadOnlyList<Selection> selections = null,
++            int pulseReward = 1,
++            int staticReward = 1)
+         {
+             _players = Copy(players);
+             _pulseRecipients = Copy(pulseRecipients);
+             _staticRecipients = Copy(staticRecipients);
+             _winners = Copy(winners);
++            _selections = Copy(selections ?? Array.Empty<Selection>());
+             _winningSignalCardId = winningSignalCardId;
+             IsDraw = isDraw;
+             AppliedEvent = appliedEvent;
++            PulseReward = pulseReward;
++            StaticReward = staticReward;
+         }
+ 
+         public IReadOnlyList<PlayerState> Players => _players;
+         public IReadOnlyList<PlayerId> PulseRecipients => _pulseRecipients;
+         public IReadOnlyList<PlayerId> StaticRecipients => _staticRecipients;
+         public IReadOnlyList<PlayerId> Winners => _winners;
++        public IReadOnlyList<Selection> Selections => _selections;
+         public SignalCardId? WinningSignalCardId => _winningSignalCardId;
+         public bool IsDraw { get; }
+         public RoundEvent AppliedEvent { get; }
++        public int PulseReward { get; }
++        public int StaticReward { get; }
+         public bool IsMatchEnded => IsDraw || _winners.Count > 0;
+ 
+         public PlayerState Player(PlayerId id)
+diff --git a/Aura-Farming/Assets/_Project/Scripts/Domain/RoundResolver.cs b/Aura-Farming/Assets/_Project/Scripts/Domain/RoundResolver.cs
+index 780c3ed..2772416 100644
+--- a/Aura-Farming/Assets/_Project/Scripts/Domain/RoundResolver.cs
++++ b/Aura-Farming/Assets/_Project/Scripts/Domain/RoundResolver.cs
+@@ -80,7 +80,17 @@ namespace AuraFarming.Domain
+                     .ToArray();
+             }
+ 
+-            return new RoundOutcome(updatedPlayers, pulseRecipients, staticRecipients, winners, isDraw, roundEvent, winningSignalCardId);
++            return new RoundOutcome(
++                updatedPlayers,
++                pulseRecipients,
++                staticRecipients,
++                winners,
++                isDraw,
++                roundEvent,
++                winningSignalCardId,
++                selections,
++                pulseReward,
++                staticReward);
+         }
+ 
+         private static IReadOnlyList<PlayerState> Validate(
+diff --git a/Aura-Farming/Assets/_Project/Scripts/Presentation/BootstrapLoader.cs b/Aura-Farming/Assets/_Project/Scripts/Presentation/BootstrapLoader.cs
+index 1679faa..5e64b0d 100644
+--- a/Aura-Farming/Assets/_Project/Scripts/Presentation/BootstrapLoader.cs
++++ b/Aura-Farming/Assets/_Project/Scripts/Presentation/BootstrapLoader.cs
+@@ -1,5 +1,6 @@
+ using UnityEngine;
+ using UnityEngine.SceneManagement;
++using UnityEngine.UI;
+ 
+ namespace AuraFarming.Presentation
+ {
+@@ -7,6 +8,16 @@ namespace AuraFarming.Presentation
+     {
+         private void Start()
+         {
++            var canvas = new GameObject("Bootstrap UI", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
++            canvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
++            var background = new GameObject("Background", typeof(RectTransform), typeof(Image));
++            background.transform.SetParent(canvas.transform, false);
++            background.GetComponent<Image>().color = new Color(0.012f, 0.008f, 0.02f, 1f);
++            var rect = background.GetComponent<RectTransform>(); rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = Vector2.zero; rect.offsetMax = Vector2.zero;
++            var label = new GameObject("Aura Farming", typeof(RectTransform), typeof(Text));
++            label.transform.SetParent(canvas.transform, false);
++            var text = label.GetComponent<Text>(); text.text = "AURA FARMING\n<color=#D10A70>INITIALIZING AURA...</color>"; text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"); text.fontSize = 54; text.alignment = TextAnchor.MiddleCenter; text.color = Color.white; text.supportRichText = true;
++            var lr = label.GetComponent<RectTransform>(); lr.anchorMin = new Vector2(.1f,.4f); lr.anchorMax = new Vector2(.9f,.6f); lr.offsetMin = Vector2.zero; lr.offsetMax = Vector2.zero;
+             SceneManager.LoadScene("MainMenu");
+         }
+     }
+diff --git a/Aura-Farming/Assets/_Project/Scripts/Presentation/GameCompositionRoot.cs b/Aura-Farming/Assets/_Project/Scripts/Presentation/GameCompositionRoot.cs
+index 29b645e..4089726 100644
+--- a/Aura-Farming/Assets/_Project/Scripts/Presentation/GameCompositionRoot.cs
++++ b/Aura-Farming/Assets/_Project/Scripts/Presentation/GameCompositionRoot.cs
+@@ -45,16 +45,18 @@ namespace AuraFarming.Presentation
+                 signalValues.Add(matchConfig.Signals[index].CardId, matchConfig.Signals[index].Value);
+             }
+ 
+-            matchView.ApplySignalArtwork(matchConfig.Signals);
+-
+             var session = new GameSession(players, signalValues);
+             var winnerAnimationPlayer = GetComponent<WinnerAnimationDirector>();
+             _presenter = new GamePresenter(new SelectionFlowController(session), matchView, winnerAnimationPlayer);
++            matchView.ConfigureSignalSelection(id => _presenter.ChooseSignal(new SignalCardId(id)));
++            matchView.ConfigureConfirmSelection(_presenter.ConfirmSignal);
++            matchView.ApplySignalArtwork(matchConfig.Signals);
+             matchView.ConfigureEvents(matchConfig.Events, ChooseEvent);
+             _presenter.Start();
+         }
+ 
+         public void ChooseSignal(int signalId) => _presenter?.ChooseSignal(new SignalCardId(signalId));
++        public void ConfirmSignal() => _presenter?.ConfirmSignal();
+         public void ContinueAfterHandover() => _presenter?.ContinueAfterHandover();
+         public void RevealRound() => _presenter?.RevealRound();
+         public void ChooseEvent(int eventIndex)
+@@ -67,8 +69,7 @@ namespace AuraFarming.Presentation
+ 
+         public void StartNewGame()
+         {
+-            PlayerPrefs.DeleteKey(PlayerCountKey);
+-            SceneManager.LoadScene("MainMenu");
++            SceneManager.LoadScene("Game");
+         }
+ 
+         public void ReturnToMainMenu() => SceneManager.LoadScene("MainMenu");
+diff --git a/Aura-Farming/Assets/_Project/Scripts/Presentation/GamePresenter.cs b/Aura-Farming/Assets/_Project/Scripts/Presentation/GamePresenter.cs
+index 65c94c8..eba395e 100644
+--- a/Aura-Farming/Assets/_Project/Scripts/Presentation/GamePresenter.cs
++++ b/Aura-Farming/Assets/_Project/Scripts/Presentation/GamePresenter.cs
+@@ -36,12 +36,15 @@ namespace AuraFarming.Presentation
+ 
+         public void ChooseSignal(SignalCardId cardId)
+         {
+-            var result = _flow.SubmitCurrent(cardId);
++            var result = _flow.SelectCurrent(cardId);
+             RenderResult(result);
+-            if (!result.IsSuccess)
+-            {
+-                return;
+-            }
++        }
++
++        public void ConfirmSignal()
++        {
++            var result = _flow.ConfirmCurrent();
++            RenderResult(result);
++            if (!result.IsSuccess) return;
+ 
+             if (_flow.Phase == SelectionFlowPhase.AwaitingHandover)
+             {
+diff --git a/Aura-Farming/Assets/_Project/Scripts/Presentation/MainMenuView.cs b/Aura-Farming/Assets/_Project/Scripts/Presentation/MainMenuView.cs
+index 57ab531..c6037e5 100644
+--- a/Aura-Farming/Assets/_Project/Scripts/Presentation/MainMenuView.cs
++++ b/Aura-Farming/Assets/_Project/Scripts/Presentation/MainMenuView.cs
+@@ -12,6 +12,9 @@ namespace AuraFarming.Presentation
+         [SerializeField] private GameObject helpPanel;
+         [SerializeField] private GameObject setupPanel;
+         [SerializeField] private Dropdown playerCountDropdown;
++        [SerializeField] private Font brandingFont;
++        [SerializeField] private Font uiFont;
++        [SerializeField] private Font uiMediumFont;
+ 
+         public void Configure(GameObject title, GameObject help, GameObject setup, Dropdown playerDropdown)
+         {
+@@ -31,7 +34,78 @@ namespace AuraFarming.Presentation
+             SceneManager.LoadScene("Game");
+         }
+ 
+-        private void Start() => ShowTitle();
++        private void Start()
++        {
++            ApplyPremiumStyle();
++            ShowTitle();
++        }
++
++        private void ApplyPremiumStyle()
++        {
++            var canvas = GetComponentInChildren<Canvas>(true);
++            if (canvas == null) return;
++            var background = canvas.GetComponent<Image>() ?? canvas.gameObject.AddComponent<Image>();
++            background.color = new Color(0.012f, 0.008f, 0.02f, 1f);
++            background.raycastTarget = false;
++            CreateMenuAccent(canvas.transform, new Vector2(.78f, .52f), new Vector2(.52f, 1.25f), 18f, new Color(.20f, .01f, .13f, .72f));
++            CreateMenuAccent(canvas.transform, new Vector2(.82f, .52f), new Vector2(.025f, .82f), -18f, new Color(1f, .04f, .42f, .72f));
++            CreateMenuAccent(canvas.transform, new Vector2(.68f, .19f), new Vector2(.32f, .012f), 0f, new Color(1f, .04f, .42f, .5f));
++            foreach (var text in canvas.GetComponentsInChildren<Text>(true))
++            {
++                var isTitle = text.name.ToLowerInvariant().Contains("title") || text.text.ToUpperInvariant().Contains("AURA") || text.text.ToUpperInvariant().Contains("TABLE IS");
++                var selectedFont = isTitle ? brandingFont : uiMediumFont;
++                if (selectedFont != null) text.font = selectedFont;
++                text.color = isTitle ? Color.white : new Color(0.78f, 0.74f, 0.82f);
++            }
++            foreach (var button in canvas.GetComponentsInChildren<Button>(true))
++            {
++                var primary = button.GetComponentInChildren<Text>(true)?.text.ToUpperInvariant().Contains("PLAY") == true;
++                var rect = button.GetComponent<RectTransform>();
++                rect.sizeDelta = new Vector2(primary ? 500f : 460f, primary ? 90f : 76f);
++                foreach (var label in button.GetComponentsInChildren<Text>(true))
++                {
++                    if (uiFont != null) label.font = uiFont;
++                    label.fontStyle = FontStyle.Normal;
++                    label.alignment = TextAnchor.MiddleCenter;
++                    label.rectTransform.offsetMin = new Vector2(20f, 0f);
++                    label.rectTransform.offsetMax = new Vector2(-20f, 0f);
++                }
++                var image = button.GetComponent<Image>();
++                if (image != null) image.color = primary ? new Color(0.83f, 0.04f, 0.48f, 1f) : new Color(0.025f, 0.015f, 0.035f, 1f);
++                var colors = button.colors;
++                colors.normalColor = Color.white;
++                colors.highlightedColor = new Color(1f, 0.18f, 0.62f);
++                colors.pressedColor = new Color(0.55f, 0.02f, 0.28f);
++                button.colors = colors;
++                var outline = button.GetComponent<Outline>() ?? button.gameObject.AddComponent<Outline>();
++                outline.effectColor = new Color(1f, 0.12f, 0.58f, primary ? 0.8f : 0.65f);
++                outline.effectDistance = new Vector2(primary ? 3f : 1.5f, primary ? -3f : -1.5f);
++                CreateButtonCut(button.transform, primary);
++            }
++        }
++
++        private static void CreateButtonCut(Transform button, bool primary)
++        {
++            var cut = new GameObject("Angular Accent", typeof(RectTransform), typeof(Image));
++            cut.transform.SetParent(button, false);
++            var rect = cut.GetComponent<RectTransform>();
++            rect.anchorMin = new Vector2(1f, 0f); rect.anchorMax = new Vector2(1f, 1f);
++            rect.pivot = new Vector2(1f, .5f); rect.anchoredPosition = Vector2.zero;
++            rect.sizeDelta = new Vector2(primary ? 34f : 18f, primary ? 132f : 108f);
++            rect.localRotation = Quaternion.Euler(0f, 0f, 18f);
++            var image = cut.GetComponent<Image>(); image.color = primary ? new Color(.12f, .01f, .08f, .9f) : new Color(1f, .08f, .45f, .85f); image.raycastTarget = false;
++        }
++
++        private static void CreateMenuAccent(Transform parent, Vector2 anchor, Vector2 size, float rotation, Color color)
++        {
++            var accent = new GameObject("Neon Menu Accent", typeof(RectTransform), typeof(Image));
++            accent.transform.SetParent(parent, false);
++            var rect = accent.GetComponent<RectTransform>();
++            rect.anchorMin = anchor; rect.anchorMax = anchor; rect.sizeDelta = new Vector2(size.x * 1000f, size.y * 700f);
++            rect.localRotation = Quaternion.Euler(0f, 0f, rotation);
++            var image = accent.GetComponent<Image>(); image.color = color; image.raycastTarget = false;
++            accent.transform.SetAsLastSibling();
++        }
+ 
+         private void ShowOnly(GameObject visible)
+         {
+diff --git a/Aura-Farming/Assets/_Project/Scripts/Presentation/MatchView.cs b/Aura-Farming/Assets/_Project/Scripts/Presentation/MatchView.cs
+index 5f45596..a525c2b 100644
+--- a/Aura-Farming/Assets/_Project/Scripts/Presentation/MatchView.cs
++++ b/Aura-Farming/Assets/_Project/Scripts/Presentation/MatchView.cs
+@@ -23,17 +23,20 @@ namespace AuraFarming.Presentation
+         [SerializeField] private int[] signalArtworkCardIds = Array.Empty<int>();
+         [SerializeField] private WinnerAnimationDirector winnerAnimationDirector;
+         private Action<int> _chooseEvent;
++        private Action<int> _chooseSignal;
++        private Action _confirmSelection;
+         private GameObject _eventPanel;
++        private GameSnapshot _lastSnapshot;
+ 
+         private static readonly Color[] SignalCardColors =
+         {
+-            new(0.15f, 0.12f, 0.075f, 1f),
+-            new(0.18f, 0.14f, 0.08f, 1f),
+-            new(0.12f, 0.11f, 0.075f, 1f),
++            new(0.09f, 0.015f, 0.07f, 1f),
++            new(0.12f, 0.02f, 0.09f, 1f),
++            new(0.07f, 0.02f, 0.08f, 1f),
+         };
+ 
+-        private static readonly Color EventColor = new(0.21f, 0.16f, 0.08f, 1f);
+-        private static readonly Color EventHighlightColor = new(0.96f, 0.67f, 0.12f, 1f);
++        private static readonly Color EventColor = new(0.12f, 0.02f, 0.09f, 1f);
++        private static readonly Color EventHighlightColor = new(1f, 0.12f, 0.58f, 1f);
+         private static readonly Color ShadowColor = new(0.015f, 0.012f, 0.008f, 0.92f);
+ 
+         public void Configure(
+@@ -52,6 +55,8 @@ namespace AuraFarming.Presentation
+             endPanel = end;
+             hudText = hud;
+             statusText = status;
++            if (hudText != null) hudText.color = new Color(0.95f, 0.9f, 1f);
++            if (statusText != null) statusText.color = new Color(0.95f, 0.9f, 1f);
+         }
+ 
+         public void ConfigureSignalArtworkSlots(Image[] slots)
+@@ -60,6 +65,17 @@ namespace AuraFarming.Presentation
+             signalArtworkCardIds = Array.Empty<int>();
+         }
+ 
++        public void ConfigureConfirmSelection(Action confirmSelection)
++        {
++            _confirmSelection = confirmSelection;
++        }
++
++        public void ConfigureSignalSelection(Action<int> chooseSignal)
++        {
++            _chooseSignal = chooseSignal;
++            EnsureTenthSignalCard();
++        }
++
+         public void ConfigureSignalArtworkSlots(Image[] slots, int[] cardIds)
+         {
+             signalArtwork = slots ?? Array.Empty<Image>();
+@@ -134,6 +150,54 @@ namespace AuraFarming.Presentation
+             }
+         }
+ 
++        private void EnsureTenthSignalCard()
++        {
++            if (selectionPanel == null || _chooseSignal == null ||
++                selectionPanel.GetComponentsInChildren<Button>(true).Any(button => button.name == "Signal 10")) return;
++
++            var cardObject = new GameObject("Signal 10", typeof(RectTransform), typeof(Image), typeof(Button));
++            cardObject.transform.SetParent(selectionPanel.transform, false);
++            var rect = cardObject.GetComponent<RectTransform>();
++            rect.anchorMin = rect.anchorMax = new Vector2(.5f, 0f);
++            rect.pivot = new Vector2(.5f, 0f);
++            rect.anchoredPosition = new Vector2(0f, 18f);
++            rect.sizeDelta = new Vector2(170f, 170f);
++            var button = cardObject.GetComponent<Button>();
++            button.onClick.AddListener(() => _chooseSignal(10));
++            StyleButton(button, SignalCardColors[0], EventHighlightColor, 1.04f);
++
++            var artworkObject = new GameObject("Artwork", typeof(RectTransform), typeof(Image));
++            artworkObject.transform.SetParent(cardObject.transform, false);
++            var artworkRect = artworkObject.GetComponent<RectTransform>();
++            artworkRect.anchorMin = new Vector2(0f, .28f);
++            artworkRect.anchorMax = new Vector2(1f, 1f);
++            artworkRect.offsetMin = new Vector2(9f, 7f);
++            artworkRect.offsetMax = new Vector2(-9f, -7f);
++            var artwork = artworkObject.GetComponent<Image>();
++            artwork.preserveAspect = true;
++
++            var labelObject = new GameObject("Label", typeof(RectTransform), typeof(Text));
++            labelObject.transform.SetParent(cardObject.transform, false);
++            var label = labelObject.GetComponent<Text>();
++            label.text = "SIGNAL 10";
++            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
++            label.fontSize = 18;
++            label.fontStyle = FontStyle.Bold;
++            label.alignment = TextAnchor.MiddleLeft;
++            label.color = new Color(1f, .92f, .70f);
++            var labelRect = label.rectTransform;
++            labelRect.anchorMin = new Vector2(0f, 0f);
++            labelRect.anchorMax = new Vector2(1f, 0f);
++            labelRect.pivot = new Vector2(.5f, 0f);
++            labelRect.anchoredPosition = new Vector2(14f, 8f);
++            labelRect.sizeDelta = new Vector2(-28f, 30f);
++
++            signalArtwork = signalArtwork.Concat(new[] { artwork }).ToArray();
++            signalArtworkCardIds = signalArtworkCardIds.Length == 0
++                ? Enumerable.Range(1, signalArtwork.Length).ToArray()
++                : signalArtworkCardIds.Concat(new[] { 10 }).ToArray();
++        }
++
+         private static void StyleButton(Button button, Color normal, Color highlighted, float pressedScale)
+         {
+             var image = button.GetComponent<Image>();
+@@ -148,7 +212,7 @@ namespace AuraFarming.Presentation
+             colors.fadeDuration = .12f;
+             button.colors = colors;
+ 
+-            AddOutline(button.gameObject, new Color(0.96f, 0.67f, 0.12f, .9f), new Vector2(1.5f, -1.5f));
++            AddOutline(button.gameObject, new Color(1f, 0.12f, 0.58f, .9f), new Vector2(1.5f, -1.5f));
+             var shadow = button.GetComponent<Shadow>() ?? button.gameObject.AddComponent<Shadow>();
+             shadow.effectColor = ShadowColor;
+             shadow.effectDistance = new Vector2(3f, -4f);
+@@ -221,46 +285,111 @@ namespace AuraFarming.Presentation
+                 }
+                 builder.Append("   ");
+             }
++            _lastSnapshot = snapshot;
+             hudText.text = builder.ToString();
+         }
+ 
+         public void ShowPrivateSelection(PlayerId player)
+         {
+             ShowOnly(selectionPanel);
++            EnsureConfirmSelectionButton();
++            ApplyPanelStyle(selectionPanel);
+             statusText.text = $"Player {player.Value}: choose your Signal privately";
+         }
+ 
++        private void EnsureConfirmSelectionButton()
++        {
++            if (selectionPanel == null || _confirmSelection == null) return;
++            if (selectionPanel.GetComponentsInChildren<Button>(true)
++                .Any(button => button.name == "LOCK IN")) return;
++
++            var buttonObject = new GameObject("LOCK IN", typeof(RectTransform), typeof(Image), typeof(Button));
++            buttonObject.transform.SetParent(selectionPanel.transform, false);
++            var rect = buttonObject.GetComponent<RectTransform>();
++            rect.anchorMin = rect.anchorMax = new Vector2(1f, 0f);
++            rect.pivot = new Vector2(1f, 0f);
++            rect.anchoredPosition = new Vector2(-28f, 28f);
++            rect.sizeDelta = new Vector2(230f, 64f);
++            var image = buttonObject.GetComponent<Image>();
++            image.color = new Color(0.82f, 0.04f, 0.48f, 1f);
++            var button = buttonObject.GetComponent<Button>();
++            button.targetGraphic = image;
++            button.onClick.AddListener(() => _confirmSelection());
++            var labelObject = new GameObject("Label", typeof(RectTransform), typeof(Text));
++            labelObject.transform.SetParent(buttonObject.transform, false);
++            var label = labelObject.GetComponent<Text>();
++            label.text = "LOCK IN";
++            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
++            label.fontSize = 24;
++            label.alignment = TextAnchor.MiddleCenter;
++            label.color = Color.white;
++            var labelRect = label.rectTransform;
++            labelRect.anchorMin = Vector2.zero;
++            labelRect.anchorMax = Vector2.one;
++            labelRect.offsetMin = labelRect.offsetMax = Vector2.zero;
++        }
++
+         public void ShowPassScreen(PlayerId nextPlayer)
+         {
+             ShowOnly(passPanel);
++            ApplyPanelStyle(passPanel);
+             statusText.text = $"Hide the screen, then pass to Player {nextPlayer.Value}";
++            if (passPanel != null)
++            {
++                foreach (var text in passPanel.GetComponentsInChildren<Text>(true)) text.color = Color.white;
++                foreach (var button in passPanel.GetComponentsInChildren<Button>(true))
++                {
++                    var image = button.GetComponent<Image>(); if (image != null) image.color = new Color(0.78f, 0.03f, 0.42f, 1f);
++                }
++            }
+         }
+ 
+         public void ShowReadyToReveal()
+         {
+             ShowOnly(revealPanel);
++            ApplyPanelStyle(revealPanel);
+             statusText.text = "All Signals locked. Reveal when everyone is ready.";
+         }
+ 
+         public void ShowReveal(RoundOutcome outcome)
+         {
+             ShowOnly(resultPanel);
++            ApplyPanelStyle(resultPanel);
+             winnerAnimationDirector?.PlayWinningAnimation(outcome);
+             var pulse = outcome.PulseRecipients.Count == 0
+                 ? "No Pulse"
+                 : $"Pulse: {string.Join(", ", outcome.PulseRecipients.Select(id => $"P{id.Value}"))}";
+             var jam = outcome.StaticRecipients.Count == 0
+                 ? "No Static"
+-                : $"Static: {string.Join(", ", outcome.StaticRecipients.Select(id => $"P{id.Value}"))}";
+-            statusText.text = $"{pulse}  |  {jam}";
++                : $"Static: {string.Join(", ", outcome.StaticRecipients.Select(id => $"P{id.Value} (+{outcome.StaticReward})"))}";
++            if (outcome.PulseRecipients.Count > 0)
++            {
++                pulse = $"Pulse: {string.Join(", ", outcome.PulseRecipients.Select(id => $"P{id.Value} (+{outcome.PulseReward})"))}";
++            }
++            var selections = outcome.Selections.Count == 0
++                ? "No public selections"
++                : string.Join("  |  ", outcome.Selections.OrderBy(selection => selection.PlayerId.Value)
++                    .Select(selection => $"P{selection.PlayerId.Value}: SIGNAL {selection.CardId.Value:00} ({selection.SignalValue})"));
++            var eliminated = outcome.Players.Where(player => player.IsEliminated)
++                .Select(player => $"P{player.Id.Value}").ToArray();
++            var elimination = eliminated.Length == 0 ? string.Empty : $"\nEliminated: {string.Join(", ", eliminated)}";
++            // Winners are match-level winners (used by the end screen), not a
++            // winner for this individual round. Reveal only reports the
++            // scoring recipients so an ordinary round cannot claim the match
++            // has been won.
++            statusText.text = $"ROUND RESULT\n{selections}\n{pulse}  |  {jam}{elimination}";
+         }
+ 
+         public void ShowEnd(RoundOutcome outcome)
+         {
+             ShowOnly(endPanel);
+-            statusText.text = outcome.IsDraw
+-                ? "Signal collapse: draw"
+-                : $"Winner: {string.Join(", ", outcome.Winners.Select(id => $"Player {id.Value}"))}";
++            ApplyPanelStyle(endPanel);
++            var winner = outcome.IsDraw ? "DRAW" : $"WINNER: {string.Join(", ", outcome.Winners.Select(id => $"PLAYER {id.Value}"))}";
++            var scores = _lastSnapshot == null ? string.Empty : string.Join("   ", _lastSnapshot.Players.Select(player => $"P{player.Id.Value} AURA: {player.Pulse - player.Static}"));
++            var summary = $"{winner}\n{scores}";
++            var subtitle = endPanel == null ? null : endPanel.GetComponentsInChildren<Text>(true).FirstOrDefault(text => text.text == "THE TABLE HAS SPOKEN");
++            if (subtitle != null) subtitle.text = summary;
++            else statusText.text = summary;
+         }
+ 
+         public void ShowError(CommandError error)
+@@ -268,6 +397,27 @@ namespace AuraFarming.Presentation
+             statusText.text = $"Cannot continue: {error}";
+         }
+ 
++        private static void ApplyPanelStyle(GameObject panel)
++        {
++            if (panel == null) return;
++            var image = panel.GetComponent<Image>();
++            if (image != null) image.color = new Color(0.02f, 0.015f, 0.035f, 0.96f);
++            foreach (var text in panel.GetComponentsInChildren<Text>(true))
++            {
++                text.color = new Color(0.95f, 0.93f, 1f);
++                text.fontStyle = FontStyle.Normal;
++            }
++            foreach (var button in panel.GetComponentsInChildren<Button>(true))
++            {
++                var buttonImage = button.GetComponent<Image>();
++                if (buttonImage != null) buttonImage.color = new Color(0.82f, 0.04f, 0.48f, 1f);
++                var colors = button.colors;
++                colors.highlightedColor = new Color(1f, 0.16f, 0.62f, 1f);
++                colors.pressedColor = new Color(0.55f, 0.02f, 0.28f, 1f);
++                button.colors = colors;
++            }
++        }
++
+         private void ShowOnly(GameObject visible)
+         {
+             selectionPanel.SetActive(visible == selectionPanel);
+diff --git a/Aura-Farming/Assets/_Project/Scripts/Presentation/SelectionFlowController.cs b/Aura-Farming/Assets/_Project/Scripts/Presentation/SelectionFlowController.cs
+index 4e0aa0a..333a117 100644
+--- a/Aura-Farming/Assets/_Project/Scripts/Presentation/SelectionFlowController.cs
++++ b/Aura-Farming/Assets/_Project/Scripts/Presentation/SelectionFlowController.cs
+@@ -33,22 +33,46 @@ namespace AuraFarming.Presentation
+         public PlayerId CurrentPlayer { get; private set; }
+         public PlayerId NextPlayer => _nextPlayer;
+         public RoundEvent SelectedEvent => _roundEvent;
++        public SignalCardId? PendingSelection { get; private set; }
+         public GameSnapshot Snapshot => _session.Snapshot;
+ 
+         public CommandResult SubmitCurrent(SignalCardId cardId)
++        {
++            var selected = SelectCurrent(cardId);
++            return selected.IsSuccess ? ConfirmCurrent() : selected;
++        }
++
++        public CommandResult SelectCurrent(SignalCardId cardId)
++        {
++            if (Phase != SelectionFlowPhase.AwaitingPrivateSelection)
++            {
++                return CommandResult.Failure(CommandError.InvalidPhase);
++            }
++
++            PendingSelection = cardId;
++            return CommandResult.Success();
++        }
++
++        public CommandResult ConfirmCurrent()
+         {
+             if (Phase != SelectionFlowPhase.AwaitingPrivateSelection)
+             {
+                 return CommandResult.Failure(CommandError.InvalidPhase);
+             }
+ 
+-            var result = _session.SubmitSelection(CurrentPlayer, cardId);
++            if (!PendingSelection.HasValue)
++            {
++                return CommandResult.Failure(CommandError.InvalidPhase);
++            }
++
++            var result = _session.SubmitSelection(CurrentPlayer, PendingSelection.Value);
+             if (!result.IsSuccess)
+             {
+                 return result;
+             }
+ 
+             _submittedPlayers.Add(CurrentPlayer);
++            PendingSelection = null;
+             var next = _session.Players.FirstOrDefault(player => !player.IsEliminated && !_submittedPlayers.Contains(player.Id));
+             if (next == null)
+             {
+@@ -116,6 +140,7 @@ namespace AuraFarming.Presentation
+             {
+                 _submittedPlayers.Clear();
+                 _roundEvent = null;
++                PendingSelection = null;
+                 CurrentPlayer = FirstActivePlayer();
+                 Phase = SelectionFlowPhase.AwaitingPrivateSelection;
+             }
+diff --git a/Aura-Farming/Assets/_Project/Tests/EditMode/GamePresenterTests.cs b/Aura-Farming/Assets/_Project/Tests/EditMode/GamePresenterTests.cs
+index 2b74bea..293a622 100644
+--- a/Aura-Farming/Assets/_Project/Tests/EditMode/GamePresenterTests.cs
++++ b/Aura-Farming/Assets/_Project/Tests/EditMode/GamePresenterTests.cs
+@@ -16,7 +16,7 @@ namespace AuraFarming.Tests.EditMode
+             var presenter = new GamePresenter(CreateFlow(), view);
+ 
+             presenter.Start();
+-            presenter.ChooseSignal(new SignalCardId(1));
++            presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal();
+ 
+             Assert.That(view.LastPrivatePlayer, Is.EqualTo(new PlayerId(1)));
+             Assert.That(view.LastPassPlayer, Is.EqualTo(new PlayerId(2)));
+@@ -29,9 +29,9 @@ namespace AuraFarming.Tests.EditMode
+             var view = new RecordingMatchView();
+             var presenter = new GamePresenter(CreateFlow(), view);
+             presenter.Start();
+-            presenter.ChooseSignal(new SignalCardId(1));
++            presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal();
+             presenter.ContinueAfterHandover();
+-            presenter.ChooseSignal(new SignalCardId(2));
++            presenter.ChooseSignal(new SignalCardId(2)); presenter.ConfirmSignal();
+ 
+             presenter.RevealRound();
+ 
+@@ -45,7 +45,7 @@ namespace AuraFarming.Tests.EditMode
+             var view = new RecordingMatchView();
+             var player = new FakeWinnerAnimationPlayer();
+             var presenter = new GamePresenter(CreateFlow(), view, player);
+-            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.RevealRound();
++            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.ConfirmSignal(); presenter.RevealRound();
+             Assert.That(player.PlayCount, Is.EqualTo(1));
+             Assert.That(player.CardId, Is.EqualTo(new SignalCardId(8)));
+             Assert.That(view.RevealCount, Is.EqualTo(0));
+@@ -59,7 +59,7 @@ namespace AuraFarming.Tests.EditMode
+             var view = new RecordingMatchView();
+             var player = new FakeWinnerAnimationPlayer();
+             var presenter = new GamePresenter(CreateFlow(), view, player);
+-            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(1)); presenter.RevealRound();
++            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.RevealRound();
+             Assert.That(player.PlayCount, Is.EqualTo(0));
+             Assert.That(view.RevealCount, Is.EqualTo(1));
+         }
+@@ -70,7 +70,7 @@ namespace AuraFarming.Tests.EditMode
+             var view = new RecordingMatchView();
+             var player = new FakeWinnerAnimationPlayer();
+             var presenter = new GamePresenter(CreateFlow(), view, player);
+-            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.RevealRound();
++            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.ConfirmSignal(); presenter.RevealRound();
+             player.Complete(); player.Complete();
+             Assert.That(view.RevealCount, Is.EqualTo(1));
+         }
+@@ -80,7 +80,7 @@ namespace AuraFarming.Tests.EditMode
+         {
+             var view = new RecordingMatchView();
+             var presenter = new GamePresenter(CreateFlow(), view);
+-            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.RevealRound();
++            presenter.Start(); presenter.ChooseSignal(new SignalCardId(1)); presenter.ConfirmSignal(); presenter.ContinueAfterHandover(); presenter.ChooseSignal(new SignalCardId(8)); presenter.ConfirmSignal(); presenter.RevealRound();
+             Assert.That(view.RevealCount, Is.EqualTo(1));
+         }
+ 
+diff --git a/Aura-Farming/Assets/_Project/Tests/EditMode/MatchViewArtworkTests.cs b/Aura-Farming/Assets/_Project/Tests/EditMode/MatchViewArtworkTests.cs
+index 41baf05..df73b15 100644
+--- a/Aura-Farming/Assets/_Project/Tests/EditMode/MatchViewArtworkTests.cs
++++ b/Aura-Farming/Assets/_Project/Tests/EditMode/MatchViewArtworkTests.cs
+@@ -1,4 +1,6 @@
+ using System.Collections.Generic;
++using System.Linq;
++using AuraFarming.Domain;
+ using AuraFarming.Infrastructure;
+ using AuraFarming.Presentation;
+ using NUnit.Framework;
+@@ -77,6 +79,63 @@ namespace AuraFarming.Tests.EditMode
+             Assert.That(tenthSlot.enabled, Is.False);
+         }
+ 
++        [Test]
++        public void ShowReveal_ReportsRoundScoringWithoutClaimingMatchWinner()
++        {
++            var view = Create<MatchView>("View");
++            var status = Create<Text>("Status");
++            var panels = Enumerable.Range(0, 5).Select(index => CreatePanel("Panel" + index)).ToArray();
++            view.Configure(panels[0], panels[1], panels[2], panels[3], panels[4], null, status);
++            var players = new[] { new PlayerState(new PlayerId(1)), new PlayerState(new PlayerId(2)) };
++            var outcome = new RoundResolver().Resolve(players, new[]
++            {
++                new Selection(players[0].Id, new SignalCardId(1), 1),
++                new Selection(players[1].Id, new SignalCardId(2), 2)
++            });
++
++            view.ShowReveal(outcome);
++
++            Assert.That(status.text, Does.Contain("ROUND RESULT"));
++            Assert.That(status.text, Does.Not.Contain("WINS"));
++            Assert.That(status.text, Does.Contain("P2"));
++        }
++
++        [Test]
++        public void ShowPrivateSelection_CreatesOneLockInButtonWhenSceneWiringIsAbsent()
++        {
++            var view = Create<MatchView>("View");
++            var status = Create<Text>("Status");
++            var panels = Enumerable.Range(0, 5).Select(index => CreatePanel("Panel" + index)).ToArray();
++            var confirmed = 0;
++            view.Configure(panels[0], panels[1], panels[2], panels[3], panels[4], null, status);
++            view.ConfigureConfirmSelection(() => confirmed++);
++
++            view.ShowPrivateSelection(new PlayerId(1));
++            view.ShowPrivateSelection(new PlayerId(1));
++            var lockIn = panels[0].GetComponentsInChildren<Button>(true).Single(button => button.name == "LOCK IN");
++            lockIn.onClick.Invoke();
++
++            Assert.That(panels[0].GetComponentsInChildren<Button>(true).Count(button => button.name == "LOCK IN"), Is.EqualTo(1));
++            Assert.That(confirmed, Is.EqualTo(1));
++        }
++
++        [Test]
++        public void ConfigureSignalSelection_AddsAndWiresSignalTenWhenSceneHasNineCards()
++        {
++            var view = Create<MatchView>("View");
++            var selection = CreatePanel("Selection");
++            var status = Create<Text>("Status");
++            var panels = Enumerable.Range(0, 4).Select(index => CreatePanel("Panel" + index)).ToArray();
++            var selectedId = 0;
++            view.Configure(selection, panels[0], panels[1], panels[2], panels[3], null, status);
++
++            view.ConfigureSignalSelection(id => selectedId = id);
++            var signalTen = selection.GetComponentsInChildren<Button>(true).Single(button => button.name == "Signal 10");
++            signalTen.onClick.Invoke();
++
++            Assert.That(selectedId, Is.EqualTo(10));
++        }
++
+         [TearDown]
+         public void TearDown()
+         {
+@@ -93,6 +152,13 @@ namespace AuraFarming.Tests.EditMode
+             return gameObject.AddComponent<T>();
+         }
+ 
++        private GameObject CreatePanel(string name)
++        {
++            var panel = new GameObject(name);
++            _created.Add(panel);
++            return panel;
++        }
++
+         private T CreateAsset<T>(string name) where T : ScriptableObject
+         {
+             var asset = ScriptableObject.CreateInstance<T>();
+diff --git a/Aura-Farming/Assets/_Project/Tests/EditMode/RoundResolverTests.cs b/Aura-Farming/Assets/_Project/Tests/EditMode/RoundResolverTests.cs
+index cdafb29..0327152 100644
+--- a/Aura-Farming/Assets/_Project/Tests/EditMode/RoundResolverTests.cs
++++ b/Aura-Farming/Assets/_Project/Tests/EditMode/RoundResolverTests.cs
+@@ -230,6 +230,24 @@ namespace AuraFarming.Tests.EditMode
+             Assert.That(outcome.WinningSignalCardId.HasValue, Is.False);
+         }
+ 
++        [Test]
++        public void Resolve_PublishesSelectionsAndAppliedRewardAmountsForReveal()
++        {
++            var players = CreatePlayers(2);
++            var selections = new[]
++            {
++                new Selection(new PlayerId(1), new SignalCardId(10), 300),
++                new Selection(new PlayerId(2), new SignalCardId(1), 2500)
++            };
++
++            var outcome = new RoundResolver().Resolve(players, selections,
++                new RoundEvent("surge", "Pulse Surge", "", RoundEffect.PulseSurge));
++
++            Assert.That(outcome.Selections, Is.EqualTo(selections));
++            Assert.That(outcome.PulseReward, Is.EqualTo(2));
++            Assert.That(outcome.StaticReward, Is.EqualTo(1));
++        }
++
+         private static IReadOnlyList<PlayerState> CreatePlayers(int count)
+         {
+             return Enumerable.Range(1, count).Select(value => new PlayerState(new PlayerId(value))).ToArray();

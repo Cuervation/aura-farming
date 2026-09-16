@@ -1,0 +1,28 @@
+{
+  "objective": "unity-autonomous-e2e",
+  "status": "running",
+  "cliBuild": true,
+  "unityCompile": true,
+  "pipe": true,
+  "ping": true,
+  "getEditorState": true,
+  "getCurrentScene": true,
+  "getCompilationStatus": true,
+  "getConsoleReal": false,
+  "getHierarchy": true,
+  "auraSceneOpened": true,
+  "enterPlayMode": false,
+  "bridgeReconnectPlay": false,
+  "captureGameView": false,
+  "exitPlayMode": false,
+  "editModeTests": {
+    "executed": false,
+    "passed": 0,
+    "failed": 0
+  },
+  "externalBlocker": null,
+  "supervisorCycles": 2,
+  "nextCriterion": "getConsoleReal",
+  "lastError": "ConsoleJson is confirmed placeholder at AuraWindowBridgeServer.cs:178.",
+  "lastProgressTimestamp": "2026-09-16T14:08:22.1350402-03:00"
+}

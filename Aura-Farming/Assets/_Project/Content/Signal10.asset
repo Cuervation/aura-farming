@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Name: Signal10
   m_EditorClassIdentifier: AuraFarming.Infrastructure::AuraFarming.Infrastructure.SignalDefinition
   cardId: 10
-  id: signal-10
-  displayName: Mewing
-  value: 200
-  artwork: {fileID: 0}
+  id: chasquido
+  displayName: Chasquido
+  value: 300
+  artwork: {fileID: 21300000, guid: b2764d0259b76934190d37ab73befb20, type: 3}
